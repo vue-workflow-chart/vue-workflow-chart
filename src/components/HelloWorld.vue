@@ -2,22 +2,12 @@
     <svg
         width="500"
         height="1000">
-        <rect
+        <state
             x="50"
-            y="20"
-            rx="20"
-            ry="20"
-            width="150"
-            height="150"
-            style="fill:red;stroke:black;stroke-width:5;opacity:0.5" />
-        <rect
+            y="150" />
+        <state
             x="50"
-            y="300"
-            rx="20"
-            ry="20"
-            width="150"
-            height="150"
-            style="fill:red;stroke:black;stroke-width:5;opacity:0.5" />
+            y="300" />
         <path
             d="M125 170 L125 300"
             stroke="green"
@@ -31,7 +21,7 @@ export default {
     props: {
         msg: {
             type: String,
-            default: '',
+            default: "",
         },
     },
 };
