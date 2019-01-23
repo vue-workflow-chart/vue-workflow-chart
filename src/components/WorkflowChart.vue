@@ -7,7 +7,9 @@
             :key="index"
             :description="state.description"
             :x="state.x"
-            :y="state.y" />
+            :y="state.y"
+            :width="state.width"
+            :height="state.height" />
         <transition
             v-for="(transition, index) in transitions"
             :key="index"
@@ -40,8 +42,8 @@ export default {
         },
         states() {
             return [
-                { x: 50, y: 20, description: 'New' },
-                { x: 50, y: 300, description: 'Longer description for a State' },
+                { x: 50, y: 20, description: 'New', width: 150, height: 150 },
+                { x: 50, y: 300, description: 'Longer description for a State', width: 150, height: 150 },
             ];
         },
     },

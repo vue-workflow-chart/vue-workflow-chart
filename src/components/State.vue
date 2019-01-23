@@ -1,17 +1,30 @@
 <template>
-    <rect
+    <svg
         :x="x"
         :y="y"
-        rx="20"
-        ry="20"
-        width="150"
-        height="150"
-        class="state" />
+        :height="height"
+        :width="width">
+        <rect
+            width="100%"
+            height="100%"
+            fill="white"
+            stroke="black" />
+        <text
+            x="50%"
+            y="50%"
+            font-family="Verdana"
+            font-size="10"
+            text-anchor="middle"
+            alignment-baseline="central"
+            fill="black">
+            {{ description }}
+        </text>
+    </svg>
 </template>
 
 <script>
 export default {
-    name: 'State',
+    name: "State",
     props: {
         description: {
             type: String,
@@ -25,15 +38,27 @@ export default {
             type: Number,
             required: true,
         },
+        msg: {
+            type: String,
+            default: "",
+        },
+        width: {
+            type: Number,
+            required: true,
+        },
+        height: {
+            type: Number,
+            required: true,
+        },
     },
 };
 </script>
 
 <style scoped>
 .state {
-    fill: red;
-    stroke: black;
-    stroke-width: 5;
-    opacity: 0.5;
+  fill: white;
+  stroke: black;
+  stroke-width: 5;
+  opacity: 0.5;
 }
 </style>
