@@ -5,3 +5,11 @@ pipeline:
       - yarn
       - yarn run lint
       - yarn run test:unit
+  sonar:
+    image: aosapps/drone-sonar-plugin
+    commands:
+      - echo $PWD
+      - sonar-scanner -Dsonar.login=$${SONAR_LOGIN}
+    secrets: [SONAR_LOGIN]
+    when:
+      event: push
