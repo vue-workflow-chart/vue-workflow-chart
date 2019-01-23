@@ -1,7 +1,7 @@
 # 20-modell-aachen
 
 ## Build status
-[![Build Status](https://cloud.drone.io/api/badges/quitejonny/vue-workflow-chart/status.svg)](https://cloud.drone.io/quitejonny/vue-workflow-chart)
+[![Build Status](https://cloud.drone.io/api/badges/vue-workflow-chart/vue-workflow-chart/status.svg)](https://cloud.drone.io/vue-workflow-chart/vue-workflow-chart)
 
 ## Project setup
 ```
