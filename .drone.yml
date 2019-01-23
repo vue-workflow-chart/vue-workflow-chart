@@ -1,0 +1,7 @@
+pipeline:
+  tests:
+    image: node:8
+    commands:
+      - yarn
+      - yarn run lint
+      - yarn run test:unit
