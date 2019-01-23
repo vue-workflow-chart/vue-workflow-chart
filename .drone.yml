@@ -9,7 +9,7 @@ pipeline:
     image: newtmitch/sonar-scanner
     commands:
       - echo $PWD
-      - sonar-scanner -Dsonar.login=$${SONAR_LOGIN}
-    secrets: [SONAR_LOGIN]
+      - sonar-scanner -Dsonar.host.url=$${SONAR_HOST} -Dsonar.login=$${SONAR_LOGIN}
+    secrets: [SONAR_HOST, SONAR_LOGIN]
     when:
       event: push
