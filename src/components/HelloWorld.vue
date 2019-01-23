@@ -8,7 +8,10 @@
         <state
             x="50"
             y="300" />
-        <transition />
+        <transition
+            d="M125 170 L125 275" />
+        <transition
+            d="M150,170 v100 h100" />
     </svg>
 </template>
 

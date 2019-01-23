@@ -14,10 +14,10 @@
             </marker>
         </defs>
         <path
-            d="M125 170 L125 275"
+            :d="d"
             stroke="green"
             stroke-width="3"
-            style="marker-end: url(#markerArrow);" />
+            style="marker-end: url(#markerArrow); fill:none" />
     </g>
 </template>
 
@@ -25,6 +25,10 @@
 export default {
     name: 'Transition',
     props: {
+        d: {
+            type: String,
+            required: true,
+        },
     },
 };
 </script>
