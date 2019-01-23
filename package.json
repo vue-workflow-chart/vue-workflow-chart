@@ -9,6 +9,7 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "dagre": "^0.8.4",
     "vue": "^2.5.21"
   },
   "devDependencies": {
