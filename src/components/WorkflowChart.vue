@@ -34,7 +34,7 @@ export default {
     computed: {
         transitions() {
             return [{
-                path: [{ x: 125, y:170 },{ x: 125, y:230 },{ x: 125, y: 300 }],
+                path: [{ x: 125, y:170 },{ x: 125, y:230 },{ x: 125, y: 275 }],
                 description: 'Description for transition',
             }];
         },

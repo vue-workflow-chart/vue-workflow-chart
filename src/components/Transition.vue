@@ -3,10 +3,10 @@
         <defs>
             <marker
                 id="markerArrow"
-                marker-width="13"
-                marker-height="13"
-                ref-x="2"
-                ref-y="6"
+                markerWidth="13"
+                markerHeight="13"
+                refX="2"
+                refY="6"
                 orient="auto">
                 <path
                     d="M2,2 v8 l8,-4z "
