@@ -13,6 +13,10 @@
 export default {
     name: 'State',
     props: {
+        description: {
+            type: String,
+            required: true,
+        },
         x: {
             type: Number,
             required: true,

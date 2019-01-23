@@ -1,6 +1,6 @@
 <template>
     <path
-        d="M125 170 L125 300"
+        :d="svgPath"
         stroke="green"
         stroke-width="3" />
 </template>
@@ -9,6 +9,21 @@
 export default {
     name: 'Transition',
     props: {
+        path: {
+            type: Array,
+            required: true,
+        },
+        description: {
+            type: String,
+            default: '',
+        },
+    },
+    computed: {
+        svgPath() {
+            console.log(this.path);
+            const [start, middle, end] = this.path;
+            return `M${start.x} ${start.y} L${middle.x} ${middle.y} L${end.x} ${end.y}`;
+        },
     },
 };
 </script>

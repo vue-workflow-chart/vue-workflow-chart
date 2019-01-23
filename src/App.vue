@@ -4,18 +4,18 @@
             alt="Vue logo"
             src="./assets/logo.png">
         <div>
-            <HelloWorld msg="Welcome to Your Vue.js App" />
+            <workflow-chart msg="Welcome to Your Vue.js App" />
         </div>
     </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue';
+import WorkflowChart from './components/WorkflowChart.vue';
 
 export default {
     name: 'App',
     components: {
-        HelloWorld,
+        WorkflowChart,
     },
 };
 </script>
