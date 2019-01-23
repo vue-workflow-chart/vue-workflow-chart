@@ -4,20 +4,23 @@
         height="1000">
         <state
             x="50"
-            y="150" />
+            y="20" />
         <state
             x="50"
             y="300" />
-        <path
-            d="M125 170 L125 300"
-            stroke="green"
-            stroke-width="3" />
+        <transition />
     </svg>
 </template>
 
 <script>
+import Transition from './Transition';
+import State from './State';
 export default {
     name: 'HelloWorld',
+    components: {
+        Transition,
+        State,
+    },
     props: {
         msg: {
             type: String,
