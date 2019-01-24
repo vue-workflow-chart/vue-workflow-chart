@@ -19,9 +19,9 @@ pipeline:
     when:
       event: push
   publish:
-    image: node:8
-    commands:
-      - yarn publish
+    image: plugins/npm
+    settings:
+      token: $${NPM_LOGIN}
     secrets: [NPM_LOGIN]
     when:
-      event: tag
+      event: push
