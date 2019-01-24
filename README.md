@@ -1,5 +1,6 @@
 [![Build Status](https://cloud.drone.io/api/badges/vue-workflow-chart/vue-workflow-chart/status.svg)](https://cloud.drone.io/vue-workflow-chart/vue-workflow-chart)
 [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=vue-workflow-chart_vue-workflow-chart&metric=alert_status)](https://sonarcloud.io/dashboard/index/vue-workflow-chart_vue-workflow-chart)
+[![Code coverage](https://sonarcloud.io/api/project_badges/measure?project=vue-workflow-chart_vue-workflow-chart&metric=coverage)](https://sonarcloud.io/dashboard/index/vue-workflow-chart_vue-workflow-chart)
 ```
 yarn install
 ```
