@@ -16,6 +16,15 @@
         <path
             :d="svgPath"
             class="path" />
+        <text
+            :x="x"
+            :y="y"
+            font-family="Verdana"
+            font-size="10"
+            text-anchor="middle"
+            fill="black">
+            {{ description }}
+        </text>
     </g>
 </template>
 
@@ -31,6 +40,14 @@ export default {
         description: {
             type: String,
             default: '',
+        },
+        x: {
+            type: Number,
+            required: true,
+        },
+        y: {
+            type: Number,
+            required: true,
         },
     },
     computed: {

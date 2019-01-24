@@ -16,7 +16,6 @@
             text-anchor="middle"
             alignment-baseline="central">
             {{ label }}
-            <text />
         </text>
     </svg>
 </template>

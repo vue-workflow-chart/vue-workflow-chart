@@ -14,7 +14,9 @@
             v-for="(transition, key) in transitions"
             :key="'trans'+key"
             :description="transition.description"
-            :path="transition.path" />
+            :path="transition.path"
+            :x="transition.x"
+            :y="transition.y" />
     </svg>
 </template>
 
@@ -73,7 +75,7 @@ export default {
         for (const transition of Object.values(workflow.transitions)) {
             g.setEdge(transition.sourceState, transition.targetState, {
                 label: transition.label,
-                width: 180,
+                width: 120,
                 height: 50,
             });
         }
@@ -92,6 +94,8 @@ export default {
                 return {
                     description: data.label,
                     path: data.points,
+                    x: data.x,
+                    y: data.y,
                 };
             });
             return transitions;
