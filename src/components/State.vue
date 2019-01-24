@@ -1,7 +1,7 @@
 <template>
     <svg
-        :x="x"
-        :y="y"
+        :x="center.x-width/2"
+        :y="center.y-height/2"
         :width="width"
         :height="height">
         <rect
@@ -24,16 +24,16 @@
 export default {
     name: "State",
     props: {
+        id: {
+            type: String,
+            required: true,
+        },
         label: {
             type: String,
             required: true,
         },
-        x: {
-            type: Number,
-            required: true,
-        },
-        y: {
-            type: Number,
+        center: {
+            type: Object,
             required: true,
         },
     },
@@ -55,6 +55,7 @@ export default {
     },
     mounted() {
         this.textBox = this.$refs.label.getBBox();
+        this.$emit('size-change', { id: this.id, size: { width: this.width, height: this.height } });
     },
 };
 </script>

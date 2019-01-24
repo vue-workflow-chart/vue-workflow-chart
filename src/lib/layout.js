@@ -53,10 +53,17 @@ export default class Layout {
                         x: data.x,
                         y: data.y,
                     },
-                    text: '',
+                    text: data.label,
                 },
             };
         });
         return transitions;
+    }
+
+    setStateSize(stateId, size) {
+        const state = this._graph.node(stateId);
+        this._graph.setNode(stateId, { ...state, ...size });
+
+        layout(this._graph);
     }
 }

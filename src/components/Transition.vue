@@ -33,6 +33,10 @@ import { cloneDeep } from 'lodash';
 export default {
     name: 'Transition',
     props: {
+        id: {
+            type: String,
+            required: true,
+        },
         path: {
             type: Array,
             required: true,
@@ -55,7 +59,6 @@ export default {
             let path = `M${start.x} ${start.y}`;
 
             let next = points.shift();
-            let midA;
             let midB = { x: (next.x + start.x)/2, y: (next.y + start.y)/2 };
 
             path += ` L${midB.x} ${midB.y}`;
@@ -63,15 +66,11 @@ export default {
             while (points.length > 0) {
                 start = next;
                 next = points.shift();
-                midA = midB;
                 midB = { x: (next.x + start.x)/2, y: (next.y + start.y)/2 };
                 path += ` Q${start.x} ${start.y} ${midB.x} ${midB.y}`;
             }
             path += ` L${next.x} ${next.y}`;
 
-            /*for (const point of points) {
-                path += ` L${point.x} ${point.y}`;
-            }*/
             return path;
         },
     },

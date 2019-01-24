@@ -3,20 +3,18 @@
         width="1000"
         height="1000">
         <state
-            v-for="(state, key) in states"
-            :key="'state'+key"
+            v-for="state in states"
+            :id="state.id"
+            :key="state.id"
             :label="state.label"
-            :x="state.x"
-            :y="state.y"
-            :width="state.width"
-            :height="state.height" />
+            :center="state.center"
+            @size-change="stateSizeChanged" />
         <transition
-            v-for="(transition, key) in transitions"
-            :key="'trans'+key"
-            :description="transition.description"
+            v-for="transition in transitions"
+            :id="transition.id"
+            :key="transition.id"
             :path="transition.path"
-            :x="transition.x"
-            :y="transition.y" />
+            :label="transition.label" />
     </svg>
 </template>
 
@@ -67,22 +65,19 @@ export default {
 
         layout.setStates(workflow.states);
         layout.setTransitions(workflow.transitions);
+        console.log(layout.transitions);
 
         return {
-            workflow,
             layout,
+            transitions: layout.transitions,
+            states: layout.states,
         };
     },
-    computed: {
-        transitions() {
-            return this.layout.transitions;
-        },
-        states() {
-            return this.layout.states.map(state => ({
-                ...state,
-                x: state.center.x,
-                y: state.center.y,
-            }));
+    methods: {
+        stateSizeChanged(item) {
+            this.layout.setStateSize(item.id, item.size);
+            this.states = this.layout.states;
+            this.transitions = this.layout.transitions;
         },
     },
 };
