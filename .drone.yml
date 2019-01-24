@@ -17,7 +17,7 @@ pipeline:
       - sonar-scanner -Dsonar.login=$${SONAR_LOGIN}
     secrets: [SONAR_LOGIN]
     when:
-      event: push
+      event: [push, tag]
   publish:
     image: plugins/npm
     settings:
