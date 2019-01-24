@@ -5,7 +5,7 @@
         <state
             v-for="(state, key) in states"
             :key="'state'+key"
-            :description="state.description"
+            :label="state.label"
             :x="state.x"
             :y="state.y"
             :width="state.width"
@@ -21,6 +21,7 @@
 <script>
 import Transition from './Transition';
 import State from './State';
+import { graphlib, layout } from 'dagre';
 export default {
     name: 'WorkflowChart',
     components: {
@@ -28,23 +29,76 @@ export default {
         State,
     },
     props: {
-        msg: {
-            type: String,
-            default: "",
-        },
+    },
+    data() {
+        const workflow = {
+            states: {
+                "static_state_new": {
+                    label: "Neu",
+                },
+                "static_state_deleted": {
+                    label: "Gelöscht",
+                },
+                "Hvfw2ds": {
+                    label: "Freigegeben",
+                },
+            },
+            transitions: {
+                "Kj7tqn": {
+                    sourceState: "static_state_deleted",
+                    label: "wiederherstellen",
+                    targetState: "static_state_new",
+                },
+                "Hj56kfc": {
+                    sourceState: "Hvfw2ds",
+                    label: "löschen",
+                    targetState: "static_state_deleted",
+                },
+                "Tpyly6p": {
+                    sourceState: "static_state_new",
+                    label: "freigeben",
+                    targetState: "Hvfw2ds",
+                },
+            },
+        };
+        const g = new graphlib.Graph();
+
+        g.setGraph({});
+        g.setDefaultEdgeLabel(() => {});
+
+        for (const [name, state] of Object.entries(workflow.states)) {
+            g.setNode(name, { label: state.label, width: 180, height: 50 });
+        }
+
+        for (const transition of Object.values(workflow.transitions)) {
+            g.setEdge(transition.sourceState, transition.targetState, {
+                label: transition.label,
+                width: 180,
+                height: 50,
+            });
+        }
+
+        layout(g);
+
+        return {
+            workflow,
+            graph: g,
+        };
     },
     computed: {
         transitions() {
-            return [{
-                path: [{ x: 125, y:170 }, { x: 125, y:230 }, { x: 125, y: 275 }],
-                description: 'Description for transition',
-            }];
+            const transitions = this.graph.edges().map(ids => {
+                const data = this.graph.edge(ids);
+                return {
+                    description: data.label,
+                    path: data.points,
+                };
+            });
+            return transitions;
         },
         states() {
-            return [
-                { x: 50, y: 20, description: 'New' },
-                { x: 50, y: 300, description: 'Longer description for a State' },
-            ];
+            const nodes = this.graph.nodes().map(id => this.graph.node(id));
+            return nodes;
         },
     },
 };
