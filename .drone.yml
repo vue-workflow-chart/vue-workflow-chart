@@ -2,7 +2,7 @@ pipeline:
   build:
     image: node:8
     commands:
-      - yarn
+      - yarn install
       - yarn build
   tests:
     image: node:8
