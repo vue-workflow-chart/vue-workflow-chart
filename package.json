@@ -1,6 +1,6 @@
 {
   "name": "vue-workflow-chart",
-  "version": "0.1.5",
+  "version": "0.1.2",
   "private": false,
   "author": {
     "name": "vue-workflow-chart"
@@ -21,8 +21,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --target lib --name workflow",
     "lint": "vue-cli-service lint",
-    "test:unit": "vue-cli-service test:unit",
-    "bump:patch": "npm version patch"
+    "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
     "dagre": "^0.8.4",
