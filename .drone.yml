@@ -21,7 +21,8 @@ pipeline:
   publish:
     image: plugins/npm
     settings:
+      username: $${NPM_USERNAME}
       token: $${NPM_LOGIN}
-    secrets: [NPM_LOGIN]
+    secrets: [NPM_USERNAME, NPM_LOGIN]
     when:
       event: push
