@@ -21,7 +21,8 @@
 <script>
 import Transition from './Transition';
 import State from './State';
-import { graphlib, layout } from 'dagre';
+import Layout from '../lib/layout';
+
 export default {
     name: 'WorkflowChart',
     components: {
@@ -31,80 +32,60 @@ export default {
     props: {
     },
     data() {
+        const layout = new Layout();
+
         const workflow = {
-            states: {
-                "static_state_new": {
-                    label: "Neu",
-                },
-                "static_state_deleted": {
-                    label: "Gelöscht",
-                },
-                "Hvfw2ds": {
-                    label: "Freigegeben",
-                },
-            },
-            transitions: {
-                "Kj7tqn": {
-                    sourceState: "static_state_deleted",
-                    label: "wiederherstellen",
-                    targetState: "static_state_new",
-                },
-                "Hj56kfc": {
-                    sourceState: "Hvfw2ds",
-                    label: "löschen",
-                    targetState: "static_state_deleted",
-                },
-                "Tpyly6p": {
-                    sourceState: "static_state_new",
-                    label: "freigeben",
-                    targetState: "Hvfw2ds",
-                },
-            },
+            states: [{
+                id: "static_state_new",
+                label: "Neu",
+            }, {
+                id: "static_state_deleted",
+                label: "Gelöscht",
+            }, {
+                id: "Hvfw2ds",
+                label: "Freigegeben",
+            }],
+            transitions: [{
+                id: "Kj7tqn",
+                source: "static_state_deleted",
+                target: "static_state_new",
+                label: "wiederherstellen",
+            }, {
+                id: "Hj56kfc",
+                source: "Hvfw2ds",
+                target: "static_state_deleted",
+                label: "löschen",
+            }, {
+                id: "Tpyly6p",
+                source: "static_state_new",
+                target: "Hvfw2ds",
+                label: "freigeben",
+            }],
         };
-        const g = new graphlib.Graph();
 
-        g.setGraph({});
-        g.setDefaultEdgeLabel(() => {});
-
-        for (const [name, state] of Object.entries(workflow.states)) {
-            g.setNode(name, { label: state.label, width: 180, height: 60 });
-        }
-
-        for (const transition of Object.values(workflow.transitions)) {
-            g.setEdge(transition.sourceState, transition.targetState, {
-                label: transition.label,
-                width: 180,
-                height: 50,
-            });
-        }
-
-        layout(g);
+        layout.setStates(workflow.states);
+        layout.setTransitions(workflow.transitions);
 
         return {
             workflow,
-            graph: g,
+            layout,
         };
     },
     computed: {
         transitions() {
-            const transitions = this.graph.edges().map(ids => {
-                const data = this.graph.edge(ids);
-                return {
-                    description: data.label,
-                    path: data.points,
-                };
-            });
-            return transitions;
+            return this.layout.transitions;
         },
         states() {
-            const nodes = this.graph.nodes().map(id => this.graph.node(id));
-            return nodes;
+            return this.layout.states.map(state => ({
+                ...state,
+                x: state.center.x,
+                y: state.center.y,
+            }));
         },
     },
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 h3 {
   margin: 40px 0 0;
