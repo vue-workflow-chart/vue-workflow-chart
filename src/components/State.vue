@@ -1,17 +1,29 @@
 <template>
-    <rect
+    <svg
         :x="x"
         :y="y"
-        rx="20"
-        ry="20"
-        width="150"
-        height="150"
-        class="state" />
+        :width="width"
+        :height="height">
+        <rect
+            class="state"
+            width="99%"
+            height="99%" />
+        <text
+            ref="description"
+            class="description"
+            x="50%"
+            y="60%"
+            text-anchor="middle"
+            alignment-baseline="central">
+            {{ description }}
+            <text />
+        </text>
+    </svg>
 </template>
 
 <script>
 export default {
-    name: 'State',
+    name: "State",
     props: {
         description: {
             type: String,
@@ -26,14 +38,36 @@ export default {
             required: true,
         },
     },
+    data() {
+        return {
+            textBox: {
+                width: 0,
+                height: 0,
+            },
+        };
+    },
+    computed: {
+        width() {
+            return this.textBox.width + 20;
+        },
+        height() {
+            return this.textBox.height + 20;
+        },
+    },
+    mounted() {
+        this.textBox = this.$refs.description.getBBox();
+    },
 };
 </script>
 
 <style scoped>
 .state {
-    fill: red;
-    stroke: black;
-    stroke-width: 5;
-    opacity: 0.5;
+  fill: #eee;
+  stroke: #eee;
+}
+.description {
+    fill: black;
+    font-family: "Verdana";
+    font-size: 14px;
 }
 </style>

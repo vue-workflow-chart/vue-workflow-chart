@@ -3,21 +3,19 @@
         <defs>
             <marker
                 id="markerArrow"
-                marker-width="13"
-                marker-height="13"
-                ref-x="2"
-                ref-y="6"
+                markerWidth="13"
+                markerHeight="13"
+                refX="2"
+                refY="6"
                 orient="auto">
                 <path
-                    d="M2,2 v8 l8,-4z "
-                    style="fill: #000000;" />
+                    class="arrow"
+                    d="M2,2 v8 l8,-4z " />
             </marker>
         </defs>
         <path
             :d="svgPath"
-            stroke="green"
-            stroke-width="3"
-            style="marker-end: url(#markerArrow); fill:none" />
+            class="path" />
     </g>
 </template>
 
@@ -45,6 +43,14 @@ export default {
 </script>
 
 <style scoped>
-
+.arrow {
+    fill: green;
+}
+.path {
+    marker-end: url(#markerArrow);
+    fill: none;
+    stroke: green;
+    stroke-width: 3;
+}
 </style>
 

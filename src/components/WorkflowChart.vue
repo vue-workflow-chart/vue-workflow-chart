@@ -1,16 +1,18 @@
 <template>
     <svg
-        width="500"
+        width="1000"
         height="1000">
         <state
-            v-for="(state, index) in states"
-            :key="index"
+            v-for="(state, key) in states"
+            :key="'state'+key"
             :description="state.description"
             :x="state.x"
-            :y="state.y" />
+            :y="state.y"
+            :width="state.width"
+            :height="state.height" />
         <transition
-            v-for="(transition, index) in transitions"
-            :key="index"
+            v-for="(transition, key) in transitions"
+            :key="'trans'+key"
             :description="transition.description"
             :path="transition.path" />
     </svg>
@@ -34,7 +36,7 @@ export default {
     computed: {
         transitions() {
             return [{
-                path: [{ x: 125, y:170 },{ x: 125, y:230 },{ x: 125, y: 300 }],
+                path: [{ x: 125, y:170 }, { x: 125, y:230 }, { x: 125, y: 275 }],
                 description: 'Description for transition',
             }];
         },
