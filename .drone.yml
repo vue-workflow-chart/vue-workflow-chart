@@ -9,7 +9,7 @@ pipeline:
     commands:
       - yarn install
       - yarn run lint
-      - yarn run test:unit
+      - yarn run test:unit --coverage
   sonar:
     image: aosapps/drone-sonar-plugin
     commands:

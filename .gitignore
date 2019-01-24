@@ -1,6 +1,8 @@
 .DS_Store
 node_modules
 /dist
+coverage
+nbprojects
 
 # local env files
 .env.local
