@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import { cloneDeep } from 'lodash';
 export default {
     name: 'Transition',
     props: {
@@ -34,9 +35,13 @@ export default {
     },
     computed: {
         svgPath() {
-            console.log(this.path);
-            const [start, middle, end] = this.path;
-            return `M${start.x} ${start.y} L${middle.x} ${middle.y} L${end.x} ${end.y}`;
+            const points = cloneDeep(this.path);
+            const start = points.shift();
+            let path = `M${start.x} ${start.y}`;
+            for (const point of points) {
+                path += ` L${point.x} ${point.y}`;
+            }
+            return path;
         },
     },
 };

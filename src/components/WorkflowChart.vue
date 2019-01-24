@@ -67,7 +67,7 @@ export default {
         g.setDefaultEdgeLabel(() => {});
 
         for (const [name, state] of Object.entries(workflow.states)) {
-            g.setNode(name, { label: state.label, width: 180, height: 50 });
+            g.setNode(name, { label: state.label, width: 180, height: 60 });
         }
 
         for (const transition of Object.values(workflow.transitions)) {
