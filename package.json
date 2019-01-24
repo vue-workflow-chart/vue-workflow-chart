@@ -13,7 +13,7 @@
     "json"
   ],
   "description": "workflow charts for vue.js",
-  "license": "MIT",
+  "license": "GPL v3",
   "repository": "https://github.com/vue-workflow-chart/vue-workflow-chart",
   "main": "./dist/workflow.umd.js",
   "unpkg": "./dist/workflow.umd.min",
