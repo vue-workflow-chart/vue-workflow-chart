@@ -14,7 +14,9 @@
             v-for="(transition, key) in transitions"
             :key="'trans'+key"
             :description="transition.description"
-            :path="transition.path" />
+            :path="transition.path"
+            :x="transition.x"
+            :y="transition.y" />
     </svg>
 </template>
 
