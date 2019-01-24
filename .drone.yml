@@ -22,8 +22,8 @@ pipeline:
     image: plugins/npm
     settings:
       username: $${NPM_USERNAME}
-      password: $${NPM_LOGIN}
+      password: $${NPM_PASSWORD}
       email: $${NPM_EMAIL}
-    secrets: [NPM_USERNAME, NPM_LOGIN, NPM_EMAIL]
+    secrets: [NPM_USERNAME, NPM_PASSWORD, NPM_EMAIL]
     when:
       event: push
