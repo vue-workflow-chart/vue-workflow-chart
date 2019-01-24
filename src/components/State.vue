@@ -9,13 +9,13 @@
             width="99%"
             height="99%" />
         <text
-            ref="description"
-            class="description"
+            ref="label"
+            class="label"
             x="50%"
             y="60%"
             text-anchor="middle"
             alignment-baseline="central">
-            {{ description }}
+            {{ label }}
             <text />
         </text>
     </svg>
@@ -25,7 +25,7 @@
 export default {
     name: "State",
     props: {
-        description: {
+        label: {
             type: String,
             required: true,
         },
@@ -55,7 +55,7 @@ export default {
         },
     },
     mounted() {
-        this.textBox = this.$refs.description.getBBox();
+        this.textBox = this.$refs.label.getBBox();
     },
 };
 </script>
@@ -65,7 +65,7 @@ export default {
   fill: #eee;
   stroke: #eee;
 }
-.description {
+.label {
     fill: black;
     font-family: "Verdana";
     font-size: 14px;

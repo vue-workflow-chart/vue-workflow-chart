@@ -2,7 +2,7 @@ pipeline:
   tests:
     image: node:8
     commands:
-      - yarn
+      - yarn install
       - yarn run lint
       - yarn run test:unit
   sonar:
