@@ -19,7 +19,7 @@ pipeline:
     when:
       event: push
   publish:
-    image: npm
+    image: node:8
     commands:
       - yarn publish
     when:
