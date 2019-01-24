@@ -22,7 +22,7 @@
     "build": "vue-cli-service build --target lib --name workflow",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit",
-    "bump:patch": "npm version patch | xargs -i git tag -a {} -m \"Bump patch version\""
+    "bump:patch": "npm version patch"
   },
   "dependencies": {
     "dagre": "^0.8.4",
