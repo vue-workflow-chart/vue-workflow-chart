@@ -18,3 +18,9 @@ pipeline:
     secrets: [SONAR_LOGIN]
     when:
       event: push
+  publish:
+    image: npm
+    commands:
+      - yarn publish
+    when:
+      event: tag
