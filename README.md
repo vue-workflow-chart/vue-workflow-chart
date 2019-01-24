@@ -3,6 +3,8 @@
 ## Build status
 [![Build Status](https://cloud.drone.io/api/badges/vue-workflow-chart/vue-workflow-chart/status.svg)](https://cloud.drone.io/vue-workflow-chart/vue-workflow-chart)
 
+[![Quality Gate](https://sonarcloud.io/api/badges/gate?key=vue-workflow-chart)](https://sonarcloud.io/dashboard/index/vue-workflow-chart)
+
 ## Project setup
 ```
 yarn install
