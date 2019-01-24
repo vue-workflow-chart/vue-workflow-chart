@@ -22,7 +22,6 @@
     "build": "vue-cli-service build --target lib --name workflow",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit",
-    "prepublish": "yarn run lint && yarn run test:unit && yarn run build"
   },
   "dependencies": {
     "dagre": "^0.8.4",

@@ -26,4 +26,4 @@ pipeline:
       email: $${NPM_EMAIL}
     secrets: [NPM_USERNAME, NPM_PASSWORD, NPM_EMAIL]
     when:
-      event: push
+      event: tag
