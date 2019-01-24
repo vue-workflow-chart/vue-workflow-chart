@@ -22,5 +22,6 @@ pipeline:
     image: node:8
     commands:
       - yarn publish
+    secrets: [NPM_LOGIN]
     when:
       event: tag
