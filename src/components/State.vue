@@ -2,22 +2,21 @@
     <svg
         :x="x"
         :y="y"
-        :height="height"
-        :width="width">
+        :width="width"
+        :height="height">
         <rect
-            width="100%"
-            height="100%"
-            fill="white"
-            stroke="black" />
+            class="state"
+            width="99%"
+            height="99%" />
         <text
+            ref="description"
+            class="description"
             x="50%"
-            y="50%"
-            font-family="Verdana"
-            font-size="10"
+            y="60%"
             text-anchor="middle"
-            alignment-baseline="central"
-            fill="black">
+            alignment-baseline="central">
             {{ description }}
+            <text />
         </text>
     </svg>
 </template>
@@ -38,27 +37,37 @@ export default {
             type: Number,
             required: true,
         },
-        msg: {
-            type: String,
-            default: "",
+    },
+    data() {
+        return {
+            textBox: {
+                width: 0,
+                height: 0,
+            },
+        };
+    },
+    computed: {
+        width() {
+            return this.textBox.width + 20;
         },
-        width: {
-            type: Number,
-            required: true,
+        height() {
+            return this.textBox.height + 20;
         },
-        height: {
-            type: Number,
-            required: true,
-        },
+    },
+    mounted() {
+        this.textBox = this.$refs.description.getBBox();
     },
 };
 </script>
 
 <style scoped>
 .state {
-  fill: white;
-  stroke: black;
-  stroke-width: 5;
-  opacity: 0.5;
+  fill: #eee;
+  stroke: #eee;
+}
+.description {
+    fill: black;
+    font-family: "Verdana";
+    font-size: 14px;
 }
 </style>
