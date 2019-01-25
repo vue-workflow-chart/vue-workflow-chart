@@ -1,16 +1,14 @@
 <template>
-    <svg
-        width="1000"
-        height="1000">
+    <svg>
         <state
-            v-for="state in states"
+            v-for="state in layoutStates"
             :id="state.id"
             :key="state.id"
             :label="state.label"
             :center="state.center"
             @size-change="stateSizeChanged" />
         <transition
-            v-for="transition in transitions"
+            v-for="transition in layoutTransitions"
             :id="transition.id"
             :key="transition.id"
             :path="transition.path"
@@ -30,54 +28,32 @@ export default {
         State,
     },
     props: {
+        transitions: {
+            type: Array,
+            required: true,
+        },
+        states: {
+            type: Array,
+            required: true,
+        },
     },
     data() {
         const layout = new Layout();
 
-        const workflow = {
-            states: [{
-                id: "static_state_new",
-                label: "Neu",
-            }, {
-                id: "static_state_deleted",
-                label: "Gelöscht",
-            }, {
-                id: "Hvfw2ds",
-                label: "Freigegeben",
-            }],
-            transitions: [{
-                id: "Kj7tqn",
-                source: "static_state_deleted",
-                target: "static_state_new",
-                label: "wiederherstellen",
-            }, {
-                id: "Hj56kfc",
-                source: "Hvfw2ds",
-                target: "static_state_deleted",
-                label: "löschen",
-            }, {
-                id: "Tpyly6p",
-                source: "static_state_new",
-                target: "Hvfw2ds",
-                label: "freigeben",
-            }],
-        };
-
-        layout.setStates(workflow.states);
-        layout.setTransitions(workflow.transitions);
-        console.log(layout.transitions);
+        layout.setStates(this.states);
+        layout.setTransitions(this.transitions);
 
         return {
             layout,
-            transitions: layout.transitions,
-            states: layout.states,
+            layoutTransitions: layout.transitions,
+            layoutStates: layout.states,
         };
     },
     methods: {
         stateSizeChanged(item) {
             this.layout.setStateSize(item.id, item.size);
-            this.states = this.layout.states;
-            this.transitions = this.layout.transitions;
+            this.layoutStates = this.layout.states;
+            this.layoutTransitions = this.layout.transitions;
         },
     },
 };
