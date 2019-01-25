@@ -5,7 +5,7 @@
 3. Create a branch specific to the issue you are working
  on. For clarity, name your branch like `update-xxx` or `fix-xxx`, while `xxx` is a short description of the changes you're making.
 4. Make the changes
-    * Don't forget tests, especially when you fix a bug
+    * Don't forget to write tests, especially when you fix a bug
     * Don't forget to add yourself to [Contributors](./Contributors.md) with a link to your GitHub Profile if you want to
 5. Commit your changes using a descriptive commit message.
 6. Submit a pull reqeust
