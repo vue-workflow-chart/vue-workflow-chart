@@ -30,6 +30,8 @@ for the latest version.
 
 [Contributing](./CONTRIBUTING.md)
 
+🔥 [Our Contributors](./Contributors.md) 🔥
+
 ## Code of conduct
 
 [Code of Conduct](./CODE_OF_CONDUCT.md)
