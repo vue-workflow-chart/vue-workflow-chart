@@ -9,4 +9,4 @@
 5. Commit your changes using a descriptive commit message.
 6. Submit a pull reqeust
 
-Note: Inspired by [this guide](https://github.com/freeCodeCamp/how-to-contribute-to-open-source/blob/master/CONTRIBUTING.md), please check it out and leave a star.
+Note: Inspired by [this guide](https://github.com/freeCodeCamp/how-to-contribute-to-open-source/blob/master/CONTRIBUTING.md), feel free to check it out and leave a star.
