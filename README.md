@@ -28,11 +28,11 @@ for the latest version.
 
 ## Contributing
 
-[Contributing](./CONTRIBUTING)
+[Contributing](./CONTRIBUTING.md)
 
 ## Code of conduct
 
-[Code of Conduct](./CODE_OF_CONDUCT)
+[Code of Conduct](./CODE_OF_CONDUCT.md)
 
 ## LICENSE
 
