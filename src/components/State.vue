@@ -21,13 +21,14 @@
 </template>
 
 <script>
-export function setBBoxFunction(bBoxFunction) {
-    textSizeOf = bBoxFunction;
-}
 
 let textSizeOf = (svgElement) => {
     return svgElement.getBBox();
 };
+
+export function setBBoxFunction(bBoxFunction) {
+    textSizeOf = bBoxFunction;
+}
 
 export default {
     name: "State",
