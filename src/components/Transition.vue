@@ -14,9 +14,11 @@
             </marker>
         </defs>
         <path
+            ref="transitionPath"
             :d="svgPath"
             class="path" />
         <text
+            ref="transitionLabel"
             :x="label.point.x"
             :y="label.point.y"
             font-family="Verdana"
@@ -30,7 +32,6 @@
 
 <script>
 import Path from '../lib/path.js';
-import { cloneDeep } from 'lodash';
 
 export default {
     name: 'Transition',
@@ -56,16 +57,23 @@ export default {
     },
     data() {
         const path = new Path();
+        path.setPath(this.transitionPath);
+
         return {
             path,
         };
     },
     computed: {
         svgPath(){
-            this.path.setPath(cloneDeep(this.transitionPath));
-            return this.path.getPath;
+            return this.path.svgPath;
         },
     },
+    watch: {
+        transitionPath() {
+            this.path.setPath(this.transitionPath);
+        },
+    },
+
 };
 </script>
 

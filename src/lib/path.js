@@ -1,3 +1,4 @@
+import { cloneDeep } from 'lodash';
 
 export default class Path {
 
@@ -5,11 +6,12 @@ export default class Path {
         this.path='';
     }
 
-    get getPath() {
+    get svgPath() {
         return this.path;
     }
 
-    setPath(points) {
+    setPath(transitionPath) {
+        const points = cloneDeep(transitionPath);
         let start = points.shift();
         this.path = `M${start.x} ${start.y}`;
 
