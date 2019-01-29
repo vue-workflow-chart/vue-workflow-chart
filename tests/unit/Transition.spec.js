@@ -5,7 +5,7 @@ const build = (path, label) => {
     const wrapper = mount(transition, {
         propsData: {
             id: "1",
-            path: path,
+            transitionPath: path,
             label: label,
         },
     });

@@ -11,7 +11,7 @@
             v-for="transition in layoutTransitions"
             :id="transition.id"
             :key="transition.id"
-            :path="transition.path"
+            :transitionPath="transition.path"
             :label="transition.label" />
     </svg>
 </template>

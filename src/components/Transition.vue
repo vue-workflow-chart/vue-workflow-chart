@@ -29,7 +29,9 @@
 </template>
 
 <script>
+import Path from '../lib/path.js';
 import { cloneDeep } from 'lodash';
+
 export default {
     name: 'Transition',
     props: {
@@ -37,7 +39,7 @@ export default {
             type: String,
             required: true,
         },
-        path: {
+        transitionPath: {
             type: Array,
             required: true,
         },
@@ -52,26 +54,16 @@ export default {
             }),
         },
     },
+    data() {
+        const path = new Path();
+        return {
+            path,
+        };
+    },
     computed: {
-        svgPath() {
-            const points = cloneDeep(this.path);
-            let start = points.shift();
-            let path = `M${start.x} ${start.y}`;
-
-            let next = points.shift();
-            let midB = { x: (next.x + start.x)/2, y: (next.y + start.y)/2 };
-
-            path += ` L${midB.x} ${midB.y}`;
-
-            while (points.length > 0) {
-                start = next;
-                next = points.shift();
-                midB = { x: (next.x + start.x)/2, y: (next.y + start.y)/2 };
-                path += ` Q${start.x} ${start.y} ${midB.x} ${midB.y}`;
-            }
-            path += ` L${next.x} ${next.y}`;
-
-            return path;
+        svgPath(){
+            this.path.setPath(cloneDeep(this.transitionPath));
+            return this.path.getPath;
         },
     },
 };
