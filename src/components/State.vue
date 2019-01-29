@@ -1,9 +1,9 @@
 <template>
     <svg
-        :x="center.x-width/2"
-        :y="center.y-height/2"
-        :width="width"
-        :height="height">
+        :x="center.x - size.width/2"
+        :y="center.y - size.height/2"
+        :width="size.width"
+        :height="size.height">
         <rect
             class="state"
             width="99%"
@@ -21,6 +21,14 @@
 </template>
 
 <script>
+export function setBBoxFunction(bBoxFunction) {
+    textSizeOf = bBoxFunction;
+}
+
+let textSizeOf = (svgElement) => {
+    return svgElement.getBBox();
+};
+
 export default {
     name: "State",
     props: {
@@ -39,23 +47,34 @@ export default {
     },
     data() {
         return {
-            textBox: {
+            textSize: {
                 width: 0,
                 height: 0,
             },
         };
     },
     computed: {
-        width() {
-            return this.textBox.width + 20;
+        size() {
+            return {
+                width: this.textSize.width + 20,
+                height: this.textSize.height + 20,
+            };
         },
-        height() {
-            return this.textBox.height + 20;
+    },
+    watch: {
+        label() {
+            this.emitSize();
         },
     },
     mounted() {
-        this.textBox = this.$refs.label.getBBox();
-        this.$emit('size-change', { id: this.id, size: { width: this.width, height: this.height } });
+        this.emitSize();
+    },
+    methods: {
+        async emitSize() {
+            await this.$nextTick();
+            this.textSize = textSizeOf(this.$refs.label);
+            this.$emit('size-change', { id: this.id, size: this.size });
+        },
     },
 };
 </script>
