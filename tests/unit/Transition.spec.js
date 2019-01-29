@@ -1,18 +1,12 @@
 import transition from '../../src/components/Transition.vue';
 import { mount } from '@vue/test-utils';
 
-const build = (path) => {
+const build = (path, label) => {
     const wrapper = mount(transition, {
         propsData: {
             id: "1",
             path: path,
-            label: {
-                text: 'MyLabel',
-                point: {
-                    x: 0,
-                    y: 0,
-                },
-            },
+            label: label,
         },
     });
     return wrapper;
@@ -21,7 +15,14 @@ const build = (path) => {
 describe("The transition component", () => {
     it("has a label", () => {
         const path = [ { x: 0, y: 0 }, { x: 100, y: 100 } ];
-        const wrapper = build(path);
+        const label= {
+            text: 'MyLabel',
+            point: {
+                x: 0,
+                y: 0,
+            },
+        };
+        const wrapper = build(path, label);
         expect(wrapper.vm.label.text).toBe('MyLabel');
     });
 
