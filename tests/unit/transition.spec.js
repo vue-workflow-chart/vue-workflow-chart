@@ -1,5 +1,6 @@
-import transition from '../../src/components/Transition.vue';
-import { mount } from '@vue/test-utils';
+import Transition from '../../src/components/Transition.vue';
+import { Component } from './ComponentBuilder';
+
 
 const path = [ { x: 0, y: 0 }, { x: 100, y: 100 } ];
 
@@ -15,15 +16,10 @@ const label= {
     },
 };
 
-const build = (label) => {
-    const component = mount(transition, {
-        propsData: {
-            id: "1",
-            transitionPath: path,
-            label: label,
-        },
-    });
-    return component;
+const build = (transitions) => {
+    return {
+        component : transitions.build(),
+    };
 };
 
 const textOf = (label) => {
@@ -34,23 +30,25 @@ const pathAttributeOf = (ref) => ref.attributes().d;
 
 describe("the transition component", () => {
     it("has a label", () => {
-        const component = build(label);
+        const { component } = build(new Component(Transition)
+            .and.props({ id:"1", label: label, transitionPath: path }));
         const transitionLabel = component.find({ ref: "transitionLabel" });
 
         expect(textOf(transitionLabel)).toBe('MyLabel');
     });
 
     it("has a path", () => {
-        const component = build();
+        const { component } = build(new Component(Transition)
+            .and.props({ id:"1", transitionPath: path }));
         const transitionPath = component.find({ ref:"transitionPath" });
 
         expect(pathAttributeOf(transitionPath)).not.toBe('');
     });
 
     it("has a new svg path after changing", () => {
-        const component = build();
+        const { component } = build(new Component(Transition)
+            .and.props({ id:"1", label: label, transitionPath:path }));
         const transitionPath = component.find({ ref:"transitionPath" });
-
         component.setProps({ transitionPath : changedPath });
 
         expect(pathAttributeOf(transitionPath)).toBe(changedSvgPath);
