@@ -3,6 +3,7 @@
         <state
             v-for="state in layoutStates"
             :id="state.id"
+            :ref="state.id"
             :key="state.id"
             :label="state.label"
             :center="state.center"
