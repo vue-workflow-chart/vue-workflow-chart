@@ -14,9 +14,11 @@
             </marker>
         </defs>
         <path
+            ref="transitionPath"
             :d="svgPath"
             class="path" />
         <text
+            ref="transitionLabel"
             :x="label.point.x"
             :y="label.point.y"
             font-family="Verdana"
@@ -29,7 +31,8 @@
 </template>
 
 <script>
-import { cloneDeep } from 'lodash';
+import Path from '../lib/path.js';
+
 export default {
     name: 'Transition',
     props: {
@@ -37,7 +40,7 @@ export default {
             type: String,
             required: true,
         },
-        path: {
+        transitionPath: {
             type: Array,
             required: true,
         },
@@ -52,28 +55,25 @@ export default {
             }),
         },
     },
+    data() {
+        const path = new Path();
+        path.setPath(this.transitionPath);
+
+        return {
+            path,
+        };
+    },
     computed: {
-        svgPath() {
-            const points = cloneDeep(this.path);
-            let start = points.shift();
-            let path = `M${start.x} ${start.y}`;
-
-            let next = points.shift();
-            let midB = { x: (next.x + start.x)/2, y: (next.y + start.y)/2 };
-
-            path += ` L${midB.x} ${midB.y}`;
-
-            while (points.length > 0) {
-                start = next;
-                next = points.shift();
-                midB = { x: (next.x + start.x)/2, y: (next.y + start.y)/2 };
-                path += ` Q${start.x} ${start.y} ${midB.x} ${midB.y}`;
-            }
-            path += ` L${next.x} ${next.y}`;
-
-            return path;
+        svgPath(){
+            return this.path.svgPath;
         },
     },
+    watch: {
+        transitionPath() {
+            this.path.setPath(this.transitionPath);
+        },
+    },
+
 };
 </script>
 
