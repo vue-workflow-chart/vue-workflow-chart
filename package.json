@@ -15,11 +15,11 @@
   "description": "workflow charts for vue.js",
   "license": "GPL-3.0-or-later",
   "repository": "https://github.com/vue-workflow-chart/vue-workflow-chart",
-  "main": "./dist/workflow.umd.js",
-  "unpkg": "./dist/workflow.umd.min",
+  "main": "./dist/vue-workflow-chart.umd.js",
+  "unpkg": "./dist/vue-workflow-chart.umd.min",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --target lib --name workflow",
+    "build": "vue-cli-service build --target lib --name vue-workflow-chart ./src/components/WorkflowChart.vue",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit"
   },
