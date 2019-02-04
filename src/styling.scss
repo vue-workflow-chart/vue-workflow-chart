@@ -1,0 +1,31 @@
+$background-color: white;
+$stroke-color: blue;
+$text-color: red;
+$default-font-family: Verdana;
+$default-font-size: 14px;
+$arrow-color: green;
+$marker-definition: url(#markerArrow);
+
+.state {
+  fill: $background-color;
+  stroke: $stroke-color;
+}
+.label {
+  fill: $text-color;
+  font: {
+      family: $default-font-family;
+      size: $default-font-size;
+  }
+  &-arrow {
+    font-size: 0.7  * $default-font-size;
+  }
+}
+.arrow {
+  fill: $arrow-color;
+}
+.path {
+  marker-end: url(#markerArrow);
+  fill: none;
+  stroke: $arrow-color;
+  stroke-width: 3;
+}

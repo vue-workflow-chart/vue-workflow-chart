@@ -21,10 +21,8 @@
             ref="transitionLabel"
             :x="label.point.x"
             :y="label.point.y"
-            font-family="Verdana"
-            font-size="10"
-            text-anchor="middle"
-            fill="black">
+            class="label-arrow"
+            text-anchor="middle">
             {{ label.text }}
         </text>
     </g>
@@ -77,15 +75,7 @@ export default {
 };
 </script>
 
-<style scoped>
-.arrow {
-    fill: green;
-}
-.path {
-    marker-end: url(#markerArrow);
-    fill: none;
-    stroke: green;
-    stroke-width: 3;
-}
+<style lang="scss" scoped>
+@import '../styling.scss';
 </style>
 

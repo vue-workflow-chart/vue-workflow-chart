@@ -6,6 +6,8 @@
         :height="size.height">
         <rect
             class="state"
+            rx="3"
+            ry="3"
             width="99%"
             height="99%" />
         <text
@@ -80,14 +82,6 @@ export default {
 };
 </script>
 
-<style scoped>
-.state {
-  fill: #eee;
-  stroke: #eee;
-}
-.label {
-    fill: black;
-    font-family: "Verdana";
-    font-size: 14px;
-}
+<style lang='scss' scoped>
+@import '../styling.scss';
 </style>
