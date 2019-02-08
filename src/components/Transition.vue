@@ -1,31 +1,32 @@
 <template>
-    <g>
-        <defs>
-            <marker
-                id="markerArrow"
-                markerWidth="13"
-                markerHeight="13"
-                refX="7"
-                refY="5"
-                orient="auto">
+    <div>
+        <svg>
+            <g>
+                <defs>
+                    <marker
+                        id="markerArrow"
+                        markerWidth="13"
+                        markerHeight="13"
+                        refX="7"
+                        refY="5"
+                        orient="auto">
+                        <path
+                            class="arrow"
+                            d="M2,2 v6 l6,-3z " />
+                    </marker>
+                </defs>
                 <path
-                    class="arrow"
-                    d="M2,2 v6 l6,-3z " />
-            </marker>
-        </defs>
-        <path
-            ref="transitionPath"
-            :d="svgPath"
-            class="path" />
-        <text
+                    ref="transitionPath"
+                    :d="svgPath"
+                    class="path" />
+            </g>
+        </svg>
+        <div
             ref="transitionLabel"
-            :x="label.point.x"
-            :y="label.point.y"
-            class="label-arrow"
-            text-anchor="middle">
-            {{ label.text }}
-        </text>
-    </g>
+            class="transition-label"
+            :style="nodeStyle"
+            v-text="label.text" />
+    </div>
 </template>
 
 <script>
@@ -62,6 +63,13 @@ export default {
         };
     },
     computed: {
+        nodeStyle() {
+            return {
+                top: this.label.point.y + 'px',
+                left: this.label.point.x + 'px',
+            };
+
+        },
         svgPath(){
             return this.path.svgPath;
         },
@@ -77,5 +85,9 @@ export default {
 
 <style lang="scss" scoped>
 @import '../styling.scss';
+svg {
+    position: absolute;
+    height: 300px;
+}
 </style>
 
