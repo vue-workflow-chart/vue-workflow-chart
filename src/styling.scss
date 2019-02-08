@@ -7,9 +7,35 @@ $arrow-color: green;
 $marker-definition: url(#markerArrow);
 
 .state {
-  fill: $background-color;
-  stroke: $stroke-color;
+  background-color: $background-color;
+  display: inline-block;
+  padding: 10px;
+  position: absolute;
+  border-radius: 3px;
+  color: $text-color;
+  transform: translate(-51%, -52%);
+  font: {
+    size: $default-font_size;
+    family: $default-font-family;
+  }
+  border: {
+    style: solid;
+    color: $stroke-color;
+    width: 2px;
+  }
 }
+
+.transition-label {
+  background-color: $background-color;
+  display: inline-block;
+  position: absolute;
+  transform: translate(-62%, -52%);
+  font: {
+    size: $default-font_size;
+    family: $default-font-family;
+  }
+}
+
 .label {
   fill: $text-color;
   font: {

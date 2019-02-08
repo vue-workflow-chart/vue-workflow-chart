@@ -1,31 +1,21 @@
 <template>
-    <svg
-        :x="center.x - size.width/2"
-        :y="center.y - size.height/2"
-        :width="size.width"
-        :height="size.height">
-        <rect
-            class="state"
-            rx="3"
-            ry="3"
-            width="99%"
-            height="99%" />
-        <text
-            ref="label"
+    <div
+        ref="label"
+        class="state"
+        :style="nodeStyle">
+        <div
             class="label"
-            x="50%"
-            y="60%"
-            text-anchor="middle"
-            alignment-baseline="central">
-            {{ label }}
-        </text>
-    </svg>
+            v-text="label" />
+    </div>
 </template>
 
 <script>
 
 let textSizeOf = (svgElement) => {
-    return svgElement.getBBox();
+    return {
+        width: svgElement.offsetWidth,
+        height: svgElement.offsetHeight,
+    };
 };
 
 export function setBBoxFunction(bBoxFunction) {
@@ -59,9 +49,16 @@ export default {
     computed: {
         size() {
             return {
-                width: this.textSize.width + 20,
-                height: this.textSize.height + 20,
+                width: this.textSize.width,
+                height: this.textSize.height,
             };
+        },
+        nodeStyle() {
+            return {
+                top: this.center.y + 'px',
+                left: this.center.x + 'px',
+            };
+
         },
     },
     watch: {
