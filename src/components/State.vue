@@ -2,11 +2,8 @@
     <div
         ref="label"
         class="state"
-        :style="nodeStyle">
-        <div
-            class="label"
-            v-text="label" />
-    </div>
+        :style="nodeStyle"
+        v-text="label" />
 </template>
 
 <script>

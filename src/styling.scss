@@ -36,16 +36,6 @@ $marker-definition: url(#markerArrow);
   }
 }
 
-.label {
-  fill: $text-color;
-  font: {
-      family: $default-font-family;
-      size: $default-font-size;
-  }
-  &-arrow {
-    font-size: 0.7  * $default-font-size;
-  }
-}
 .arrow {
   fill: $arrow-color;
 }
