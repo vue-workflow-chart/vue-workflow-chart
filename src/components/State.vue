@@ -1,26 +1,20 @@
 <template>
-    <div
-        ref="label"
-        class="state"
-        :style="nodeStyle"
-        v-text="label" />
+    <chart-label
+        styleClass="state"
+        :anchor="center"
+        :isVisible="isVisible"
+        :text="label"
+        @change-size="emitSize" />
 </template>
 
 <script>
-
-let textSizeOf = (svgElement) => {
-    return {
-        width: svgElement.offsetWidth,
-        height: svgElement.offsetHeight,
-    };
-};
-
-export function setBBoxFunction(bBoxFunction) {
-    textSizeOf = bBoxFunction;
-}
+import Label from './Label.vue';
 
 export default {
     name: "State",
+    components: {
+        chartLabel: Label,
+    },
     props: {
         id: {
             type: String,
@@ -34,43 +28,14 @@ export default {
             type: Object,
             required: true,
         },
-    },
-    data() {
-        return {
-            textSize: {
-                width: 0,
-                height: 0,
-            },
-        };
-    },
-    computed: {
-        size() {
-            return {
-                width: this.textSize.width,
-                height: this.textSize.height,
-            };
+        isVisible: {
+            type: Boolean,
+            default: false,
         },
-        nodeStyle() {
-            return {
-                top: this.center.y + 'px',
-                left: this.center.x + 'px',
-            };
-
-        },
-    },
-    watch: {
-        label() {
-            this.emitSize();
-        },
-    },
-    mounted() {
-        this.emitSize();
     },
     methods: {
-        async emitSize() {
-            await this.$nextTick();
-            this.textSize = textSizeOf(this.$refs.label);
-            this.$emit('size-change', { id: this.id, size: this.size });
+        emitSize(size) {
+            this.$emit('size-change', { id: this.id, size });
         },
     },
 };

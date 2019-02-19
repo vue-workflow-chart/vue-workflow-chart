@@ -1,57 +1,28 @@
 import State from '../../src/components/State.vue';
-import { setBBoxFunction } from '../../src/components/State.vue';
-import { Component } from './ComponentBuilder';
-import Vue from 'vue';
-
-
-const build = (component) => {
-    return {
-        state: component.build(),
-    };
-};
-
-const labelOf = (state) => {
-    const labelElement = state.find({ ref: 'label' });
-    return labelElement.text();
-};
-
-const stubBBoxFunction = () => {
-    setBBoxFunction((label) => ({
-        width: label.textContent.trim().length*10,
-        height: 100,
-    }));
-};
+import { Component, build } from './ComponentBuilder';
+import { installSizeStub } from './tester/label';
 
 describe("The state component", () => {
+    beforeAll(() => {
+        installSizeStub();
+    });
+
     it("has a rendered label", () => {
-        stubBBoxFunction();
-        const { state } = build(new Component(State)
+        const state = build(new Component(State).with.mount()
             .and.props({ id: 'state_1', label: 'deleted', center: { x: 0, y: 0 } }));
 
-        expect(labelOf(state)).toBe("deleted");
+        expect(state.text()).toBe("deleted");
     });
 
-    it("emits change when size changes", async () => {
-        stubBBoxFunction();
-        const { state } = build(new Component(State)
+    it("emits change when visible", async () => {
+        const state = build(new Component(State).with.mount()
             .and.props({ id: 'state_1', label: 'deleted', center: { x: 0, y: 0 } }));
 
-        await Vue.nextTick();
-        expect(state.emitted('size-change')).toEqual(expect.arrayContaining([[
-            { id: 'state_1', size: { width: 70, height: 100 } } ]]));
-    });
+        state.setProps({ isVisible: true });
 
-    it("emits change when label changes", async () => {
-        stubBBoxFunction();
-        const { state } = build(new Component(State)
-            .and.props({ id: 'state_1', label: 'deleted', center: { x: 0, y: 0 } }));
-
-        state.setProps({ label: 'updatedLabel' });
-        await Vue.nextTick();
-
-        expect(state.emitted('size-change').length).toEqual(2);
-        expect(state.emitted('size-change')[1]).toEqual(expect.arrayContaining([
-            { id: 'state_1', size: { width: 'updatedLabel'.length*10, height: 100 } },
-        ]));
+        expect(state.emitted('size-change')).toEqual(expect.arrayContaining([[{
+            id: 'state_1',
+            size: { width: 'deleted'.length, height: expect.any(Number) },
+        }]]));
     });
 });

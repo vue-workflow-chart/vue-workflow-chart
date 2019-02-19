@@ -5,7 +5,7 @@ export default class Layout {
 
     constructor() {
         this._graph = new graphlib.Graph();
-        this._graph.setGraph({});
+        this._graph.setGraph({ rankdir: 'TB' });
     }
 
     setStates(states) {
@@ -38,6 +38,7 @@ export default class Layout {
                 label: transition.label ? transition.label : '',
                 width: transition.width ? transition.width : 20,
                 height: transition.height ? transition.height : 10,
+                labelpos: 'c',
             });
         }
         layout(this._graph);
@@ -67,4 +68,14 @@ export default class Layout {
 
         layout(this._graph);
     }
+
+    setTransitionSize(transitionId, size) {
+        const stateIds = this._graph.edges().filter(ids => {
+            const data = this._graph.edge(ids);
+            return data.id === transitionId;
+        })[0];
+        const transition = this._graph.edge(stateIds);
+        this._graph.setEdge(stateIds.v, stateIds.w, { ...transition, ...size });
+    }
+
 }

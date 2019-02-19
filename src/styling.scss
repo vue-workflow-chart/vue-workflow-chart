@@ -1,39 +1,55 @@
 $background-color: white;
 $stroke-color: blue;
-$text-color: red;
-$default-font-family: Verdana;
+$text-color: #11353D;
+$default-font-family: "Liberation Sans";
 $default-font-size: 14px;
-$arrow-color: green;
+$arrow-color: #84878a;
 $marker-definition: url(#markerArrow);
 
 .state {
   background-color: $background-color;
-  display: inline-block;
-  padding: 10px;
+  /*display: inline-block;*/
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px;
   position: absolute;
   border-radius: 3px;
   color: $text-color;
-  transform: translate(-51%, -52%);
+  transform: translate(-50%, -50%);
   font: {
-    size: $default-font_size;
+    size: $default-font-size;
     family: $default-font-family;
+    weight: 600
   }
   border: {
     style: solid;
     color: $stroke-color;
-    width: 2px;
+    width: 0px;
   }
+  margin-right: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0px 0px 4px #dee4e5;
+  max-width: 120px;
+  text-align: center;
 }
 
 .transition-label {
   background-color: $background-color;
-  display: inline-block;
+  /*display: inline-block;*/
+  display: flex;
+  flex-wrap: wrap;
   position: absolute;
-  transform: translate(-62%, -52%);
+  transform: translate(-50%, -58%);
+  padding: 2px;
+  margin-right: 30px;
   font: {
-    size: $default-font_size;
+    size: $default-font-size;
     family: $default-font-family;
+    weight: 400
   }
+  z-index: 1;
+  max-width: 100px;
+  text-align: center;
 }
 
 .arrow {
@@ -44,4 +60,16 @@ $marker-definition: url(#markerArrow);
   fill: none;
   stroke: $arrow-color;
   stroke-width: 3;
+}
+
+svg.workflow-chart-transition {
+  display: inline-block;
+  position: absolute;
+  height: 1000px;
+  width: 1000px;
+}
+
+.workflow-chart {
+  margin: 0 auto;
+  position: relative;
 }

@@ -1,32 +1,21 @@
 import WorkflowChart from '../../src/components/WorkflowChart.vue';
-import { Component } from './ComponentBuilder';
-import { setBBoxFunction } from '../../src/components/State.vue';
+import { Component, build } from './ComponentBuilder';
+import { installSizeStub, positionOf } from './tester/label';
+import { cloneDeep } from 'lodash';
 
 import Vue from 'vue';
 
 
-const build = (workflowchart) => {
-    return {
-        component : workflowchart.build(),
-    };
-};
-
-const stubBBoxFunction = () => {
-    setBBoxFunction((label) => ({
-        width: label.innerHTML.trim().length*10,
-        height: 100,
-    }));
-};
 const transitions = [{
     id: "Kj7tqn",
     source: "static_state_deleted",
     target: "static_state_new",
     label: "wiederherstellen",
 }, {
-    id: "Hj56kfc",
+    id: "delete",
     source: "Hvfw2ds",
     target: "static_state_deleted",
-    label: "löschen",
+    label: "delete",
 }, {
     id: "Tpyly6p",
     source: "static_state_new",
@@ -45,44 +34,73 @@ const states= [{
     label: "Freigegeben",
 }];
 
-const centerOf = (state) => state.center;
+const layoutStatesOf = (chart) => chart.vm.layoutStates;
 
-const layoutStatesOf = (component, index) => {
-    if(index === "undefined") {
-        return component.vm.layoutStates;
-    }
-    return component.vm.layoutStates[index];
+const layoutTransitionsOf = (chart) => chart.vm.layoutTransitions;
+
+
+const positionIn = (chart, ref) => {
+    const state = chart.find({ ref });
+    return positionOf(state);
 };
 
-const layoutTransitionsOf = (component) => {
-    return component.vm.layoutTransitions;
-};
+const ofState = (label) => label;
 
-const stateWithLabelNeuOf = (component) => component.find({ ref: "static_state_new" });
-
-const setLabelOf = (state, label) => state.setProps({ label:label });
-
-
-describe("Workflow Chart component",()  => {
-    it("has transitions and states", () => {
-        const { component } = build(new Component(WorkflowChart)
-            .and.props({ transitions: transitions, states: states }));
-
-        expect(layoutStatesOf(component)).not.toEqual([]);
-        expect(layoutTransitionsOf(component)).not.toEqual([]);
+describe("Workflow Chart component", ()  => {
+    beforeAll(() => {
+        installSizeStub();
     });
 
-    it("has updated positions", async () => {
-        stubBBoxFunction();
-        const { component } = build(new Component(WorkflowChart)
-            .with.mount()
-            .and.props({ transitions: transitions, states: states }));
-        const oldState = layoutStatesOf(component,0);
+    it("has transitions and states", () => {
+        const chart = build(new Component(WorkflowChart)
+            .and.props({ transitions, states }));
 
-        setLabelOf(stateWithLabelNeuOf(component), "updatedLabel");
+        expect(layoutStatesOf(chart)).not.toEqual([]);
+        expect(layoutTransitionsOf(chart)).not.toEqual([]);
+    });
+
+    it("updates state", async () => {
+        const chart = build(new Component(WorkflowChart).mount()
+            .with.options({ sync: false })
+            .and.props({ transitions: [], states: [{ id: 'new', label: 'New' }] }));
+        chart.vm.visibilityChanged(true);
+
+        chart.setProps({ states: [{ id: 'new', label: 'Other label' }] });
+        await Vue.nextTick();
+        const state = chart.find({ ref: 'new' });
+
+        expect(state.text()).toBe('Other label');
+    });
+
+    xit("updates transitions", async () => {
+        const chart = build(new Component(WorkflowChart).mount()
+            .with.options({ sync: false })
+            .and.props({ transitions, states }));
+        chart.setData({ isVisible: true });
+
+        chart.setProps({ transitions: [{
+            id: "delete",
+            source: "Hvfw2ds",
+            target: "static_state_deleted",
+            label: "label changed",
+        }] });
         await Vue.nextTick();
 
-        const newState = layoutStatesOf(component,0);
-        expect(centerOf(newState)).not.toEqual(centerOf(oldState));
+        const transition = chart.find({ ref: 'delete' });
+        expect(transition.text()).toBe('loeschen');
+    });
+
+    xit("updates state position when getting visible", async () => {
+        const chart = build(new Component(WorkflowChart).mount()
+            .with.props({ states, transitions, isVisible: true }));
+        const oldPosition = positionIn(chart, ofState('static_state_new'));
+
+        const newStates = cloneDeep(states);
+        const newState = newStates.filter(state => state.id === 'static_state_new')[0];
+        newState.label = 'New Value and longer value';
+
+        chart.setProps({ newStates });
+
+        expect(positionIn(chart, ofState('static_state_new'))).not.toEqual(oldPosition);
     });
 });

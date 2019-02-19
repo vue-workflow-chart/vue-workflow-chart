@@ -2,9 +2,7 @@ import { createLocalVue, mount, shallowMount } from '@vue/test-utils';
 
 
 export function build(component) {
-    const buildComponent = component.build();
-
-    return { component: buildComponent };
+    return component.build();
 }
 
 class BaseComponent {

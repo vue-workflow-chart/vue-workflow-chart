@@ -1,18 +1,19 @@
 <template>
     <div>
-        <svg>
+        <svg class="workflow-chart-transition">
             <g>
                 <defs>
                     <marker
                         id="markerArrow"
-                        markerWidth="13"
-                        markerHeight="13"
-                        refX="7"
+                        viewBox="0 0 10 10"
+                        markerWidth="3"
+                        markerHeight="3"
+                        refX="5"
                         refY="5"
-                        orient="auto">
+                        orient="auto-start-reverse">
                         <path
                             class="arrow"
-                            d="M2,2 v6 l6,-3z " />
+                            d="M 0 0 L 10 5 L 0 10 z" />
                     </marker>
                 </defs>
                 <path
@@ -21,19 +22,24 @@
                     class="path" />
             </g>
         </svg>
-        <div
-            ref="transitionLabel"
-            class="transition-label"
-            :style="nodeStyle"
-            v-text="label.text" />
+        <chart-label
+            styleClass="transition-label"
+            :text="label.text"
+            :anchor="label.point"
+            :isVisible="isVisible"
+            @change-size="emitSize" />
     </div>
 </template>
 
 <script>
+import Label from './Label.vue';
 import Path from '../lib/path.js';
 
 export default {
     name: 'Transition',
+    components: {
+        chartLabel: Label,
+    },
     props: {
         id: {
             type: String,
@@ -53,23 +59,18 @@ export default {
                 },
             }),
         },
+        isVisible: {
+            type: Boolean,
+            default: false,
+        },
     },
     data() {
         const path = new Path();
         path.setPath(this.transitionPath);
 
-        return {
-            path,
-        };
+        return { path };
     },
     computed: {
-        nodeStyle() {
-            return {
-                top: this.label.point.y + 'px',
-                left: this.label.point.x + 'px',
-            };
-
-        },
         svgPath(){
             return this.path.svgPath;
         },
@@ -79,15 +80,16 @@ export default {
             this.path.setPath(this.transitionPath);
         },
     },
+    methods: {
+        emitSize(size) {
+            this.$emit('size-change', { id: this.id, size });
+        },
+    },
 
 };
 </script>
 
 <style lang="scss" scoped>
 @import '../styling.scss';
-svg {
-    position: absolute;
-    height: 300px;
-}
 </style>
 
