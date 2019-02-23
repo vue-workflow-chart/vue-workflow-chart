@@ -47,9 +47,6 @@ const positionIn = (chart, ref) => {
 const ofState = (label) => label;
 
 describe("Workflow Chart component", ()  => {
-    beforeAll(() => {
-        installSizeStub();
-    });
 
     it("has transitions and states", () => {
         const chart = build(new Component(WorkflowChart)
@@ -59,48 +56,52 @@ describe("Workflow Chart component", ()  => {
         expect(layoutTransitionsOf(chart)).not.toEqual([]);
     });
 
-    it("updates state", async () => {
+    it("updates state", () => {
         const chart = build(new Component(WorkflowChart).mount()
-            .with.options({ sync: false })
             .and.props({ transitions: [], states: [{ id: 'new', label: 'New' }] }));
-        chart.vm.visibilityChanged(true);
 
         chart.setProps({ states: [{ id: 'new', label: 'Other label' }] });
-        await Vue.nextTick();
         const state = chart.find({ ref: 'new' });
 
         expect(state.text()).toBe('Other label');
     });
 
-    xit("updates transitions", async () => {
-        const chart = build(new Component(WorkflowChart).mount()
-            .with.options({ sync: false })
-            .and.props({ transitions, states }));
-        chart.setData({ isVisible: true });
+    it("emits size after state is updated", () => {
+        const chart = build(new Component(WorkflowChart)
+            .and.props({ transitions: [], states: [{ id: 'new', label: 'New' }] }));
 
-        chart.setProps({ transitions: [{
-            id: "delete",
-            source: "Hvfw2ds",
-            target: "static_state_deleted",
-            label: "label changed",
-        }] });
-        await Vue.nextTick();
+        chart.setProps({ states: [{ id: 'new', label: 'Other label' }] });
 
-        const transition = chart.find({ ref: 'delete' });
-        expect(transition.text()).toBe('loeschen');
+        expect(chart.emitted('size-change').length).toBe(2);
     });
 
-    xit("updates state position when getting visible", async () => {
+    xit("updates transitions", async () => {
         const chart = build(new Component(WorkflowChart).mount()
-            .with.props({ states, transitions, isVisible: true }));
-        const oldPosition = positionIn(chart, ofState('static_state_new'));
+            .and.props({
+                states: [
+                    { id: 'state_1', label: 'new' },
+                    { id: 'state_2', label: 'deleted' },
+                ],
+                transitions: [
+                    { id: 'trans_1', label: 'delete', target: 'state_2', source: 'state_1' },
+                ],
+            }));
 
-        const newStates = cloneDeep(states);
-        const newState = newStates.filter(state => state.id === 'static_state_new')[0];
-        newState.label = 'New Value and longer value';
+        chart.setProps({ transitions: [
+            { id: 'trans_1', label: 'changed label', target: 'state_2', source: 'state_1' },
+        ] });
 
-        chart.setProps({ newStates });
+        const transition = chart.find({ ref: 'trans_1' });
+        expect(transition.text()).toBe('changed label');
+    });
 
-        expect(positionIn(chart, ofState('static_state_new'))).not.toEqual(oldPosition);
+    it("emits size of chart", () => {
+        const chart = build(new Component(WorkflowChart)
+            .with.props({ transitions: [], states: [{ id: '1', label: 'Deleted' }] }));
+
+        expect(chart.emitted('size-change')).toEqual([[{
+            width: expect.any(Number),
+            height: expect.any(Number),
+        }]]);
     });
 });

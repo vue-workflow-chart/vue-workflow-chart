@@ -3,12 +3,9 @@
         <img
             alt="Vue logo"
             src="./assets/logo.png">
-        <div>
-            <workflow-chart
-                height="1000"
-                :transitions="transitions"
-                :states="states" />
-        </div>
+        <workflow-chart
+            :transitions="transitions"
+            :states="states" />
     </div>
 </template>
 

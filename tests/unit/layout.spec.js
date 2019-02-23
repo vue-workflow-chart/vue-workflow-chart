@@ -1,6 +1,15 @@
 import { LayoutBuilder } from './tester/layout';
 
 
+const centerOf = (label, items) => {
+    return items
+        .filter(item => item.label === label)
+        .map(item => item.center)[0];
+};
+const inStatesOf = (layout) => layout.states;
+const inTransitionsOf = (layout) => layout.transitions;
+
+
 describe("the layout component", () => {
 
     it("has an empty array of states by default", () => {
@@ -17,6 +26,15 @@ describe("the layout component", () => {
             label: 'first',
             center: { x: expect.any(Number), y: expect.any(Number) },
         }]));
+    });
+
+    it("changes center of state when size changes", () => {
+        const layout = new LayoutBuilder().with.states(['first']).build();
+        const oldCenter = centerOf('first', inStatesOf(layout));
+
+        layout.setStates([{ id: 'state_id1', label: 'first', width: 100, height: 50 }]);
+
+        expect(centerOf('first', inStatesOf(layout))).not.toEqual(oldCenter);
     });
 
     it("has an empty array of transitions by default", () => {
@@ -44,18 +62,41 @@ describe("the layout component", () => {
         }]));
     });
 
-    const centerOf = (stateId, layout) => {
-        const states = layout.states.filter(state => state.id === stateId);
-        for (const state of states ) {
-            return state.center;
-        }
+    const labelOf = (transition) => transition.label;
+    const firstTransitionIn = (layout) => layout.transitions[0];
+
+    it("sets empty default label if not defined", () => {
+        const layout = new LayoutBuilder().with.states(['first', 'second'])
+            .and.transitions([{ source: 'state_id1', target: 'state_id2' }])
+            .build();
+
+        expect(labelOf(firstTransitionIn(layout))).toEqual({
+            point: { x: expect.any(Number), y: expect.any(Number) },
+            text: '',
+        });
+    });
+
+    const centerOfLabel = (label, transitions) => {
+        return transitions
+            .filter(transition => transition.label.text === label)
+            .map(transition => transition.label)
+            .map(label => label.point)[0];
     };
 
-    it("sets size for a state", () => {
+    it("changes center of transition when size changes", () => {
+        const transition = { source: 'state_id1', target: 'state_id2', label: 'transition' };
+        const layout = new LayoutBuilder().with.states(['first', 'second'])
+            .and.transitions([transition]).build();
+        const oldCenter = centerOfLabel('transition', inTransitionsOf(layout));
+
+        layout.setTransitions([{ ...transition, width: 200, height: 100 }]);
+
+        expect(centerOfLabel('transition', inTransitionsOf(layout))).not.toEqual(oldCenter);
+    });
+
+    it("returns size of chart", () => {
         const layout = new LayoutBuilder().with.states(['first']).build();
 
-        layout.setStateSize('state_id1', { width: 100, height: 50 });
-
-        expect(centerOf('state_id1', layout)).toEqual({ x: 50, y: 25 });
+        expect(layout.size).toEqual({ width: expect.any(Number), height: expect.any(Number) });
     });
 });

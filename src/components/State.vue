@@ -2,9 +2,7 @@
     <chart-label
         styleClass="state"
         :anchor="center"
-        :isVisible="isVisible"
-        :text="label"
-        @change-size="emitSize" />
+        :text="label" />
 </template>
 
 <script>
@@ -27,15 +25,6 @@ export default {
         center: {
             type: Object,
             required: true,
-        },
-        isVisible: {
-            type: Boolean,
-            default: false,
-        },
-    },
-    methods: {
-        emitSize(size) {
-            this.$emit('size-change', { id: this.id, size });
         },
     },
 };

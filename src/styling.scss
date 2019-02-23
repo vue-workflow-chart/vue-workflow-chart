@@ -56,7 +56,6 @@ $marker-definition: url(#markerArrow);
   fill: $arrow-color;
 }
 .path {
-  marker-end: url(#markerArrow);
   fill: none;
   stroke: $arrow-color;
   stroke-width: 3;
@@ -65,11 +64,8 @@ $marker-definition: url(#markerArrow);
 svg.workflow-chart-transition {
   display: inline-block;
   position: absolute;
-  height: 1000px;
-  width: 1000px;
 }
 
 .workflow-chart {
-  margin: 0 auto;
-  position: relative;
+  position: absolute;
 }

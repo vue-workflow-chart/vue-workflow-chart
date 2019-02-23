@@ -1,4 +1,4 @@
-import Path from './../../../src/lib/path';
+import Path from '../../../src/lib/path';
 
 export class PathBuilder {
     constructor() {
@@ -16,7 +16,7 @@ export class PathBuilder {
 
     build() {
         const svgPath = new Path();
-        if(this._transitionPath){
+        if (this._transitionPath) {
             svgPath.setPath(this._transitionPath);
         }
         return svgPath;

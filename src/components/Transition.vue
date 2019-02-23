@@ -1,44 +1,23 @@
 <template>
     <div>
-        <svg class="workflow-chart-transition">
-            <g>
-                <defs>
-                    <marker
-                        id="markerArrow"
-                        viewBox="0 0 10 10"
-                        markerWidth="3"
-                        markerHeight="3"
-                        refX="5"
-                        refY="5"
-                        orient="auto-start-reverse">
-                        <path
-                            class="arrow"
-                            d="M 0 0 L 10 5 L 0 10 z" />
-                    </marker>
-                </defs>
-                <path
-                    ref="transitionPath"
-                    :d="svgPath"
-                    class="path" />
-            </g>
-        </svg>
+        <transition-path
+            :path="transitionPath" />
         <chart-label
             styleClass="transition-label"
             :text="label.text"
-            :anchor="label.point"
-            :isVisible="isVisible"
-            @change-size="emitSize" />
+            :anchor="label.point" />
     </div>
 </template>
 
 <script>
 import Label from './Label.vue';
-import Path from '../lib/path.js';
+import TransitionPath from './TransitionPath.vue';
 
 export default {
     name: 'Transition',
     components: {
         chartLabel: Label,
+        TransitionPath,
     },
     props: {
         id: {
@@ -59,33 +38,7 @@ export default {
                 },
             }),
         },
-        isVisible: {
-            type: Boolean,
-            default: false,
-        },
     },
-    data() {
-        const path = new Path();
-        path.setPath(this.transitionPath);
-
-        return { path };
-    },
-    computed: {
-        svgPath(){
-            return this.path.svgPath;
-        },
-    },
-    watch: {
-        transitionPath() {
-            this.path.setPath(this.transitionPath);
-        },
-    },
-    methods: {
-        emitSize(size) {
-            this.$emit('size-change', { id: this.id, size });
-        },
-    },
-
 };
 </script>
 

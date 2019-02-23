@@ -1,10 +1,11 @@
+import { build } from './ComponentBuilder';
 import { PathBuilder } from './tester/path';
 
 const svgPathOf = (pathComponent) =>  pathComponent.svgPath;
 
 describe("the path component", () => {
     it("has an empty svg string at default", () => {
-        const pathComponent = new PathBuilder().build();
+        const pathComponent = build(new PathBuilder());
 
         expect(svgPathOf(pathComponent)).toBe("");
     });
@@ -16,13 +17,13 @@ describe("the path component", () => {
         const threePoints = [ { x: 0, y: 0 }, { x:50,y:50 }, { x: 100, y: 100 } ];
 
         it("two points", () => {
-            const pathComponent = new PathBuilder().with.transitionPathOf(twoPoints).build();
+            const pathComponent = build(new PathBuilder().with.transitionPathOf(twoPoints));
 
             expect(svgPathOf(pathComponent)).toBe(svgPathWithTwoPoints);
         });
 
         it("three points", () => {
-            const pathComponent = new PathBuilder().with.transitionPathOf(threePoints).build();
+            const pathComponent = build(new PathBuilder().with.transitionPathOf(threePoints));
 
             expect(svgPathOf(pathComponent)).toBe(svgPathWithThreePoints);
         });

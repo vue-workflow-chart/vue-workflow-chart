@@ -62,20 +62,9 @@ export default class Layout {
         return transitions;
     }
 
-    setStateSize(stateId, size) {
-        const state = this._graph.node(stateId);
-        this._graph.setNode(stateId, { ...state, ...size });
-
-        layout(this._graph);
-    }
-
-    setTransitionSize(transitionId, size) {
-        const stateIds = this._graph.edges().filter(ids => {
-            const data = this._graph.edge(ids);
-            return data.id === transitionId;
-        })[0];
-        const transition = this._graph.edge(stateIds);
-        this._graph.setEdge(stateIds.v, stateIds.w, { ...transition, ...size });
+    get size() {
+        const graph = this._graph.graph();
+        return { width: graph.width, height: graph.height };
     }
 
 }
