@@ -1,8 +1,7 @@
 <template>
     <svg
         :width="width"
-        :height="height"
-        class="workflow-chart-transition">
+        :height="height">
         <g>
             <defs>
                 <marker
@@ -14,7 +13,7 @@
                     refY="5"
                     orient="auto-start-reverse">
                     <path
-                        class="arrow"
+                        class="vue-workflow-chart-transition-arrow"
                         d="M 0 0 L 10 5 L 0 10 z" />
                 </marker>
             </defs>
@@ -22,7 +21,7 @@
                 ref="transitionPath"
                 :d="svgPath"
                 :marker-end="'url(#markerArrow'+_uid+')'"
-                class="path" />
+                class="vue-workflow-chart-transition-path" />
         </g>
     </svg>
 </template>
@@ -72,6 +71,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../styling.scss';
+svg {
+    display: inline-block;
+    position: absolute;
+}
 </style>
 

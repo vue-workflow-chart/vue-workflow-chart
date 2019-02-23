@@ -3,7 +3,7 @@
         <transition-path
             :path="transitionPath" />
         <chart-label
-            styleClass="transition-label"
+            styleClass="vue-workflow-chart-transition-label"
             :text="label.text"
             :anchor="label.point" />
     </div>
@@ -41,8 +41,3 @@ export default {
     },
 };
 </script>
-
-<style lang="scss" scoped>
-@import '../styling.scss';
-</style>
-

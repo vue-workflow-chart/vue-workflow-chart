@@ -1,6 +1,6 @@
 <template>
     <chart-label
-        styleClass="state"
+        styleClass="vue-workflow-chart-state"
         :anchor="center"
         :text="label" />
 </template>
@@ -29,7 +29,3 @@ export default {
     },
 };
 </script>
-
-<style lang='scss' scoped>
-@import '../styling.scss';
-</style>

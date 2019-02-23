@@ -83,10 +83,11 @@ export default {
             return item => ({ ...item, ...size.ofDivWith(item, classes) });
         },
         setup(layout) {
-            const states = this.states.map(this.includeSizeWithClasses('state'));
+            const states = this.states
+                .map(this.includeSizeWithClasses('vue-workflow-chart-state'));
             layout.setStates(states);
             const transitions = this.transitions.
-                map(this.includeSizeWithClasses('transition-label'));
+                map(this.includeSizeWithClasses('vue-workflow-chart-transition-label'));
             layout.setTransitions(transitions);
         },
 
@@ -96,4 +97,9 @@ export default {
 
 <style lang='scss'>
 @import '../styling.scss';
+</style>
+<style lang='scss' scoped>
+div {
+    position: absolute;
+}
 </style>

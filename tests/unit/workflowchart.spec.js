@@ -1,9 +1,5 @@
 import WorkflowChart from '../../src/components/WorkflowChart.vue';
 import { Component, build } from './ComponentBuilder';
-import { installSizeStub, positionOf } from './tester/label';
-import { cloneDeep } from 'lodash';
-
-import Vue from 'vue';
 
 
 const transitions = [{
@@ -38,13 +34,6 @@ const layoutStatesOf = (chart) => chart.vm.layoutStates;
 
 const layoutTransitionsOf = (chart) => chart.vm.layoutTransitions;
 
-
-const positionIn = (chart, ref) => {
-    const state = chart.find({ ref });
-    return positionOf(state);
-};
-
-const ofState = (label) => label;
 
 describe("Workflow Chart component", ()  => {
 

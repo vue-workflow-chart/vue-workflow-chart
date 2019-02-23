@@ -34,3 +34,12 @@ export default {
     },
 };
 </script>
+<style lang="scss" scoped>
+div {
+    display: flex;
+    flex-wrap: wrap;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+</style>
