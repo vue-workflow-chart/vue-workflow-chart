@@ -19,6 +19,11 @@ $marker-definition: url(#markerArrow);
   margin-bottom: 20px;
   max-width: 120px;
   text-align: center;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.15);
+  &:hover {
+    cursor: pointer;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.15);
+  }
 }
 
 .vue-workflow-chart-transition-label {
@@ -31,6 +36,11 @@ $marker-definition: url(#markerArrow);
   }
   max-width: 100px;
   text-align: center;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.05);
+  &:hover {
+    cursor: pointer;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.15);
+  }
 }
 
 .vue-workflow-chart-transition-arrow {

@@ -42,11 +42,6 @@ div {
     position: absolute;
     transform: translate(-50%, -50%);
     z-index: 1;
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.15);
 }
 
-div:hover {
-    cursor: pointer;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.15);
-}
 </style>
