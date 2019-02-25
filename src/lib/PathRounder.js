@@ -2,8 +2,9 @@ import { cloneDeep } from 'lodash';
 
 export default class Path {
 
-    constructor() {
+    constructor(radius = 12) {
         this.path='';
+        this.radius = radius;
     }
 
     get svgPath() {
@@ -12,51 +13,59 @@ export default class Path {
 
     setPath(transitionPath) {
         const points = cloneDeep(transitionPath);
-        const radius = 12;
-        let p1;
+
+        let p1 = points.shift();
         let p2 = points.shift();
 
-        let v;
-        let norm;
+        let v01;
+        let norm01;
         let q;
         let r;
 
-        let path = `M${p2.x} ${p2.y}`;
+        let v12 = { x: (p2.x-p1.x),
+            y: (p2.y-p1.y),
+        };
+        let norm12 = Math.sqrt(v12.x * v12.x + v12.y*v12.y);
+        v12.x /= norm12;
+        v12.y /= norm12;
 
-        do {
+        let path = `M${p1.x} ${p1.y}`;
+
+        while (points.length > 0) {
             p1 = p2;
             p2 = points.shift();
+            v01 = v12;
+            norm01 = norm12;
 
-            v = { x: (p2.x-p1.x),
+            v12 = { x: (p2.x-p1.x),
                 y: (p2.y-p1.y),
             };
-            norm = Math.sqrt(v.x * v.x + v.y*v.y);
-            v.x /= norm;
-            v.y /= norm;
+            norm12 = Math.sqrt(v12.x * v12.x + v12.y*v12.y);
+            v12.x /= norm12;
+            v12.y /= norm12;
 
-            if (norm < 2*radius) {
-                q = { x: (p1.x + norm/2 * v.x),
-                    y: (p1.y + norm/2 * v.y),
+            if ((norm01 < 2*this.radius) || (norm12 < 2*this.radius))  {
+                let norm = Math.min(norm01, norm12);
+                q = { x: (p1.x - norm/2 * v01.x),
+                    y: (p1.y - norm/2 * v01.y),
                 };
-                r = { x: (p2.x - norm/2 * v.x),
-                    y: (p2.y - norm/2 * v.y),
+                r = { x: (p1.x + norm/2 * v12.x),
+                    y: (p1.y + norm/2 * v12.y),
                 };
-
             } else {
-                q = { x: (p1.x + radius * v.x),
-                    y: (p1.y + radius * v.y),
+                q = { x: (p1.x - this.radius * v01.x),
+                    y: (p1.y - this.radius * v01.y),
                 };
-                r = { x: (p2.x - radius * v.x),
-                    y: (p2.y - radius * v.y),
+                r = { x: (p1.x + this.radius * v12.x),
+                    y: (p1.y + this.radius * v12.y),
                 };
             }
 
-            path += ` Q${p1.x} ${p1.y} ${q.x} ${q.y}`;
-            path += ` L${r.x} ${r.y}`;
-        } while (points.length > 0);
-        if ((r.x !== p2.x) && (r.y !== p2.y)) {
-            path += ` L${p2.x} ${p2.y}`;
+            path += ` L${q.x} ${q.y}`;
+            path += ` Q${p1.x} ${p1.y} ${r.x} ${r.y}`;
         }
+        path += ` L${p2.x} ${p2.y}`;
+
         this.path = path.trim();
     }
 }
