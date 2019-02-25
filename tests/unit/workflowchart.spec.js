@@ -64,7 +64,7 @@ describe("Workflow Chart component", ()  => {
         expect(chart.emitted('size-change').length).toBe(2);
     });
 
-    xit("updates transitions", async () => {
+    it("updates transitions", async () => {
         const chart = build(new Component(WorkflowChart).mount()
             .and.props({
                 states: [

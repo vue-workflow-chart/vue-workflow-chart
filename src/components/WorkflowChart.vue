@@ -7,7 +7,7 @@
             :key="state.id"
             :label="state.label"
             :center="state.center" />
-        <transition
+        <chart-transition
             v-for="transition in layoutTransitions"
             :id="transition.id"
             :ref="transition.id"
@@ -28,7 +28,7 @@ export default {
     name: 'WorkflowChart',
     components: {
         State,
-        Transition,
+        chartTransition: Transition,
     },
     props: {
         transitions: {
