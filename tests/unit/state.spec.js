@@ -9,4 +9,12 @@ describe("The state component", () => {
 
         expect(state.text()).toBe("deleted");
     });
+    it("emits click with id when clicked", () => {
+        const state = build(new Component(State).with.mount()
+            .and.props({ id: 'state_1', label: 'deleted', center: { x: 0, y: 0 } }));
+
+        state.trigger('click');
+
+        expect(state.emitted('click')).toEqual([['state_1']]);
+    });
 });

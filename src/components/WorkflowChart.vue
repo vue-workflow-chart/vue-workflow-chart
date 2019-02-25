@@ -6,14 +6,16 @@
             :ref="state.id"
             :key="state.id"
             :label="state.label"
-            :center="state.center" />
+            :center="state.center"
+            @click="$emit('state-click', $event)" />
         <chart-transition
             v-for="transition in layoutTransitions"
             :id="transition.id"
             :ref="transition.id"
             :key="transition.id"
             :transitionPath="transition.path"
-            :label="transition.label" />
+            :label="transition.label"
+            @click="$emit('transition-click', $event)" />
     </div>
 </template>
 
@@ -90,7 +92,6 @@ export default {
                 map(this.includeSizeWithClasses('vue-workflow-chart-transition-label'));
             layout.setTransitions(transitions);
         },
-
     },
 };
 </script>

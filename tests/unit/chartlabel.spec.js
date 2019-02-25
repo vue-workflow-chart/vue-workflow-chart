@@ -22,4 +22,10 @@ describe("The chart label", () => {
 
         expect(positionOf(label)).toEqual({ x: '15px', y: '20px' });
     });
+
+    it("emits click when clicked", ()=>{
+        const label=build(new Component(Label).with.props({ text: 'example' }));
+        label.trigger('click');
+        expect(label.emitted('click')).toBeTruthy();
+    });
 });

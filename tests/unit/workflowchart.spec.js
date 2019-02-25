@@ -93,4 +93,24 @@ describe("Workflow Chart component", ()  => {
             height: expect.any(Number),
         }]]);
     });
+
+    it("emits state-click with id when state is clicked", () => {
+        const chart = build(new Component(WorkflowChart).mount()
+            .with.props({ transitions: [], states: [{ id: '1', label: 'Deleted' }] }));
+        const state = chart.find({ ref: "1" });
+
+        state.trigger("click");
+
+        expect(chart.emitted('state-click')).toEqual([['1']]);
+    });
+
+    it("emits state-click with id when state is clicked", () => {
+        const chart = build(new Component(WorkflowChart).mount()
+            .with.props({ transitions, states }));
+        const transitionLabel = chart.find({ ref: "delete" }).find({ ref: 'label' });
+
+        transitionLabel.trigger("click");
+
+        expect(chart.emitted('transition-click')).toEqual([['delete']]);
+    });
 });

@@ -2,6 +2,7 @@
     <div
         :class="styleClass"
         :style="position"
+        @click="$emit('click')"
         v-text="text" />
 </template>
 
@@ -42,4 +43,5 @@ div {
     transform: translate(-50%, -50%);
     z-index: 1;
 }
+
 </style>
