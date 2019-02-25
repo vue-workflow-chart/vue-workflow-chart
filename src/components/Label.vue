@@ -2,6 +2,7 @@
     <div
         :class="styleClass"
         :style="position"
+        @click="$emit('click')"
         v-text="text" />
 </template>
 

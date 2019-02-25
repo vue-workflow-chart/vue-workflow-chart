@@ -2,7 +2,8 @@
     <chart-label
         styleClass="vue-workflow-chart-state"
         :anchor="center"
-        :text="label" />
+        :text="label"
+        @click="$emit('click', id)" />
 </template>
 
 <script>

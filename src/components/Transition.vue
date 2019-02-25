@@ -3,9 +3,11 @@
         <transition-path
             :path="transitionPath" />
         <chart-label
+            ref="label"
             styleClass="vue-workflow-chart-transition-label"
             :text="label.text"
-            :anchor="label.point" />
+            :anchor="label.point"
+            @click="$emit('click', id)" />
     </div>
 </template>
 
