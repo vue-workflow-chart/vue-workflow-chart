@@ -1,9 +1,10 @@
 <template>
     <div>
         <transition-path
-            :path="transitionPath" />
+            :path="transitionPath"
+            :stylingClass="stylingClass" />
         <chart-label
-            styleClass="vue-workflow-chart-transition-label"
+            :styleClass="stylingClassLabel"
             :text="label.text"
             :anchor="label.point" />
     </div>
@@ -38,6 +39,17 @@ export default {
                 },
             }),
         },
+        stylingClass: {
+            type: String,
+            default: '',
+        },
     },
+    computed: {
+        stylingClassLabel() {
+            let stylingClass = 'vue-workflow-chart-transition-label';
+            stylingClass += (this.stylingClass) ? `-${this.stylingClass}` : '';
+            return stylingClass;
+        },
+    }
 };
 </script>

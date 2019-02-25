@@ -1,31 +1,39 @@
 <template>
-    <chart-label
-        styleClass="vue-workflow-chart-state"
-        :anchor="center"
-        :text="label" />
+  <chart-label :styleClass="stylingClassState" :anchor="center" :text="label"/>
 </template>
 
 <script>
-import Label from './Label.vue';
+import Label from "./Label.vue";
 
 export default {
-    name: "State",
-    components: {
-        chartLabel: Label,
+  name: "State",
+  components: {
+    chartLabel: Label
+  },
+  props: {
+    id: {
+      type: String,
+      required: true
     },
-    props: {
-        id: {
-            type: String,
-            required: true,
-        },
-        label: {
-            type: String,
-            required: true,
-        },
-        center: {
-            type: Object,
-            required: true,
-        },
+    label: {
+      type: String,
+      required: true
     },
+    stylingClass: {
+      type: String,
+      default: ""
+    },
+    center: {
+      type: Object,
+      required: true
+    }
+  },
+  computed: {
+    stylingClassState() {
+      let ret = "vue-workflow-chart-state";
+      ret += this.stylingClass ? `-${this.stylingClass}` : "";
+      return ret;
+    }
+  }
 };
 </script>

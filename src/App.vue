@@ -5,7 +5,8 @@
             src="./assets/logo.png">
         <workflow-chart
             :transitions="transitions"
-            :states="states" />
+            :states="states"
+            :stateSemantics="stateSemantics" />
     </div>
 </template>
 
@@ -31,7 +32,7 @@ export default {
             "id": "static_state_deleted",
             "label": "Gelöscht",
         }, {
-            "id": "static_state_new",
+            "id": "new",
             "label": "Neu",
         }],
         transitions: [{
@@ -42,7 +43,7 @@ export default {
         }, {
             "id": "Ev0huzn",
             "label": "wiederherstellen",
-            "target": "static_state_new",
+            "target": "new",
             "source": "static_state_deleted",
         }, {
             "id": "Fst7op",
@@ -68,7 +69,7 @@ export default {
             "id": "Stf8g2b",
             "label": "Antrag Überarbeiten",
             "target": "J4zloua",
-            "source": "static_state_new",
+            "source": "new",
         }, {
             "id": "Tznk4f5",
             "label": "Neue Überarbeitung starten",
@@ -80,6 +81,13 @@ export default {
             "target": "Tu2vqbl",
             "source": "J4zloua",
         }],
+        stateSemantics: [{
+            "classname": "delete",
+            "id":"static_state_deleted"
+        }, {
+            "classname": "new",
+            "id": "new",
+        }]
     }),
 };
 </script>
