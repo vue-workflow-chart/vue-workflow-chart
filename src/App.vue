@@ -5,7 +5,8 @@
             src="./assets/logo.png">
         <workflow-chart
             :transitions="transitions"
-            :states="states" />
+            :states="states"
+            :stateSemantics="stateSemantics" />
     </div>
 </template>
 
@@ -31,7 +32,7 @@ export default {
             "id": "static_state_deleted",
             "label": "Gelöscht",
         }, {
-            "id": "static_state_new",
+            "id": "new",
             "label": "Neu",
         }],
         transitions: [{
@@ -42,7 +43,7 @@ export default {
         }, {
             "id": "Ev0huzn",
             "label": "wiederherstellen",
-            "target": "static_state_new",
+            "target": "new",
             "source": "static_state_deleted",
         }, {
             "id": "Fst7op",
@@ -68,7 +69,7 @@ export default {
             "id": "Stf8g2b",
             "label": "Antrag Überarbeiten",
             "target": "J4zloua",
-            "source": "static_state_new",
+            "source": "new",
         }, {
             "id": "Tznk4f5",
             "label": "Neue Überarbeitung starten",
@@ -80,6 +81,54 @@ export default {
             "target": "Tu2vqbl",
             "source": "J4zloua",
         }],
+        stateSemantics: [{
+            "classname": "delete",
+            "id":"static_state_deleted",
+        }],
     }),
+    created() {
+        const approveLabel = state => state.label === 'Freigegeben';
+        const semantic = item => ({ id: item.id, classname: 'approve' });
+
+        const approvedState = this.states.filter(approveLabel).map(semantic);
+        this.stateSemantics = [ ...this.stateSemantics, ...approvedState ];
+    },
 };
 </script>
+<style lang="scss">
+@import './styling.scss';
+$approve-color: #1eb2a4;
+$delete-color: #d64b61;
+
+.vue-workflow-chart-state {
+    &-approve {
+        color: white;
+        background: $approve-color;
+    }
+
+    &-delete {
+        color: white;
+        background: $delete-color;
+    }
+}
+
+.vue-workflow-chart-transition-arrow {
+    &-approve {
+        fill: $approve-color;
+    }
+
+    &-delete {
+        fill: $delete-color;
+    }
+}
+
+.vue-workflow-chart-transition-path {
+    &-approve {
+        stroke: $approve-color;
+    }
+
+    &-delete {
+        stroke: $delete-color;
+    }
+}
+</style>

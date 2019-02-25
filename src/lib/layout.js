@@ -12,7 +12,8 @@ export default class Layout {
         for (const state of states) {
             const width = state.width ? state.width : 20;
             const height = state.height ? state.height : 10;
-            this._graph.setNode(state.id, { label: state.label, width, height });
+            const styleClass = state.stylingClass;
+            this._graph.setNode(state.id, { label: state.label, width, height, styleClass });
         }
         layout(this._graph);
     }
@@ -27,6 +28,7 @@ export default class Layout {
                     x: node.x,
                     y: node.y,
                 },
+                stylingClass: node.styleClass,
             };
         });
     }
@@ -39,6 +41,7 @@ export default class Layout {
                 width: transition.width ? transition.width : 20,
                 height: transition.height ? transition.height : 10,
                 labelpos: 'c',
+                stylingClass: transition.stylingClass,
             });
         }
         layout(this._graph);
@@ -57,6 +60,7 @@ export default class Layout {
                     },
                     text: data.label,
                 },
+                stylingClass: data.stylingClass,
             };
         });
         return transitions;
