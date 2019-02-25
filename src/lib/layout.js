@@ -5,7 +5,7 @@ export default class Layout {
 
     constructor() {
         this._graph = new graphlib.Graph();
-        this._graph.setGraph({ rankdir: 'TB' });
+        this._graph.setGraph({ rankdir: 'LR' });
     }
 
     setStates(states) {
