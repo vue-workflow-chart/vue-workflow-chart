@@ -5,13 +5,7 @@
   "author": {
     "name": "vue-workflow-chart"
   },
-  "keywords": [
-    "vue",
-    "workflow",
-    "chart",
-    "dagre",
-    "json"
-  ],
+  "keywords": ["vue", "workflow", "chart", "dagre", "json", "css"],
   "description": "workflow charts for vue.js",
   "license": "GPL-3.0-or-later",
   "repository": "https://github.com/vue-workflow-chart/vue-workflow-chart",
