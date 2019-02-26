@@ -1,11 +1,13 @@
 <template>
     <div id="app">
         <workflow-chart
+            :style="size"
             :transitions="transitions"
             :states="states"
             :stateSemantics="stateSemantics"
-            @state-click="clickHandler('state',$event)"
-            @transition-click="clickHandler('transition', $event)" />
+            @state-click="onLabelClicked('state',$event)"
+            @transition-click="onLabelClicked('transition', $event)"
+            @size-change="sizeChanged" />
     </div>
 </template>
 
@@ -84,17 +86,24 @@ export default {
             "classname": "delete",
             "id":"static_state_deleted",
         }],
+        size: { width: '0px', height: '0px' },
     }),
     created() {
-        const approveLabel = state => state.label === 'Freigegeben';
+        const approveLabel = state => state.label === 'Released';
         const semantic = item => ({ id: item.id, classname: 'approve' });
 
         const approvedState = this.states.filter(approveLabel).map(semantic);
         this.stateSemantics = [ ...this.stateSemantics, ...approvedState ];
     },
     methods: {
-        clickHandler(type, id) {
+        onLabelClicked(type, id) {
             alert(`Clicked on ${type} with id: ${id}`);
+        },
+        sizeChanged(size) {
+            this.size = {
+                width: `${size.width}px`,
+                height: `${size.height}px`,
+            };
         },
     },
 };
@@ -103,12 +112,6 @@ export default {
 @import '../src/styling.scss';
 $approve-color: #1eb2a4;
 $delete-color: #d64b61;
-#app {
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 10%;
-}
 .vue-workflow-chart-state {
     &-approve {
         color: white;
@@ -139,5 +142,12 @@ $delete-color: #d64b61;
     &-delete {
         stroke: $delete-color;
     }
+}
+</style>
+<style lang="scss" scoped>
+#app {
+    display: flex;
+    justify-content: center;
+    padding-top: 100px;
 }
 </style>
