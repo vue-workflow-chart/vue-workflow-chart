@@ -110,6 +110,17 @@ Clicking the state will trigger the state-click event. In the workflow-chart, th
 
 For another example see [example/App.vue](./example/App.vue).
 
+
+## Styling
+
+The workflow-chart styles can be changed with the classes
+
+* `.vue-workflow-chart-state`
+* `.vue-workflow-chart-transition-arrow`
+* `.vue-workflow-chart-transition-path`
+* `.vue-workflow-chart-transition-label`
+
+
 ## Giving states a semantic
 
 Single states can be given a special semantic by passing an additional class name. The state and
@@ -172,7 +183,7 @@ export default {
 .vue-workflow-chart-transition-path-delete {
     stroke: red;
 }
-</stle>
+</style>
 ```
 
 ## Contributing
