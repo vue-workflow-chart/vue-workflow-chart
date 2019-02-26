@@ -50,16 +50,22 @@ export default {
         },
         transitionPathRadius: {
             type: Number,
-            required: false,
             default: 12,
+        },
+        orientation: {
+            type: String,
+            default: 'horizontal',
         },
     },
     data() {
-        const layout = new Layout();
+        const layoutOrientation = (this.orientation === 'vertical') ? 'TD' : 'LR';
+
+        const layout = new Layout(layoutOrientation);
 
         this.setup(layout);
 
         return {
+            layoutOrientation,
             layout,
             ...this.propsOf(layout),
         };

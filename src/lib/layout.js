@@ -3,9 +3,9 @@ import { graphlib, layout } from 'dagre';
 
 export default class Layout {
 
-    constructor() {
+    constructor(orientation) {
         this._graph = new graphlib.Graph();
-        this._graph.setGraph({ rankdir: 'LR' });
+        this._graph.setGraph({ rankdir: orientation });
     }
 
     setStates(states) {
