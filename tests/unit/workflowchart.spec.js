@@ -1,7 +1,5 @@
 import WorkflowChart from '../../src/components/WorkflowChart.vue';
 import { Component, build } from './ComponentBuilder';
-import Vue from 'vue';
-
 
 const transitions = [{
     id: "Kj7tqn",
