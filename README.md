@@ -5,11 +5,11 @@ Workflow Charts for vue.js [![Build Status](https://cloud.drone.io/api/badges/vu
  [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
  ========================
 
-## What does vue-workflow-chart do?
+## What is vue-workflow-chart?
 
 Vue-Workflow-Chart is developed to visualize processes or workflows. In a company for example, workflows can get complicated and confusing very easily, so an illustration can help to understand the process.
 
-Consisting of states and transitions, these elements must be passed to vue-workflow-chart. This data will be modeled and rendered.
+As Workflows consist of states and transitions, these elements must be passed to vue-workflow-chart. The given data will be modeled and rendered.
 
 As an OpenSource - project, vue-workflow-chart comes under the GPLv3 - license.
 
@@ -29,7 +29,7 @@ for the latest version.
 ## Example
 
 A minimal example with two states and a transition from one to the other.
-```javascript
+```html
 <template>
     <div id="app">
         <workflow-chart
@@ -65,7 +65,50 @@ export default {
 </script>
 ```
 
-For a more complex example see example/App.vue
+For a more complex example see [example/App.vue](./example/App.vue).
+
+## Click events
+
+As you click on a state or a transmission, these elements emit an event. For a state, this will be a 'state-click' with the id of the element as parameter. Transmissions emit a 'transmission-click' with id. 
+
+See the minimal example below:
+
+```html
+<template>
+    <div id="app">
+        <workflow-chart
+            :transitions=[]
+            :states="states"
+            @state-click="onStateClick($event)" />
+    </div>
+</template>
+
+<script>
+import WorkflowChart from 'vue-workflow-chart';
+
+export default {
+    name: "App",
+    components: {
+        WorkflowChart,
+    },
+    data: () => ({
+        states: [{
+            "id": "state_1",
+            "label": "State 1",
+        }],
+    }),
+    methods: {
+        onStaeClick(id) {
+            alert(`Clicked on state with id: ${id}`);
+        },
+    },
+};
+</script>
+```
+
+Clicking the state will trigger the state-click event. In the workflow-chart, this event will fire the 'onStateClick' - method. As a result, the alert with text "Clicked on state with id: state_1" will show. 
+
+For another example see [example/App.vue](./example/App.vue).
 
 ## Contributing
 
