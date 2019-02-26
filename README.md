@@ -98,7 +98,7 @@ export default {
         }],
     }),
     methods: {
-        onStaeClick(id) {
+        onStateClick(id) {
             alert(`Clicked on state with id: ${id}`);
         },
     },
