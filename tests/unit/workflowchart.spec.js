@@ -1,5 +1,6 @@
 import WorkflowChart from '../../src/components/WorkflowChart.vue';
 import { Component, build } from './ComponentBuilder';
+import Vue from 'vue';
 
 
 const transitions = [{
@@ -30,15 +31,30 @@ const states= [{
     label: "Freigegeben",
 }];
 
-const layoutStatesOf = (chart) => chart.vm.layoutStates;
+const stateSemantics= [{
+    classname: "new",
+    id: "static_state_new",
+}, {
+    classname: "deleted",
+    id: "static_state_deleted",
+}];
 
-const layoutTransitionsOf = (chart) => chart.vm.layoutTransitions;
+const layoutStatesOf = (chart) => chart.vm.layout.states;
+
+const layoutTransitionsOf = (chart) => chart.vm.layout.transitions;
 
 const orientationOf = chart => chart.vm.layoutOrientation();
 
 const horizontal = "LR";
 
 const vertical = "TB";
+
+const classesOf = state => state.classes();
+
+const filterLayoutTransitionsWhereStylingClassIsNew = chart => layoutTransitionsOf(chart).filter(item => item.stylingClass === "new");
+
+const findTransitionOf = (chart) => chart.find({ ref:filterLayoutTransitionsWhereStylingClassIsNew(chart)[0].id }).find({ ref:"label" });
+
 
 describe("Workflow Chart component", ()  => {
     describe("orientation", () => {
@@ -64,12 +80,38 @@ describe("Workflow Chart component", ()  => {
         });
     });
 
+    describe("State Semantics", () => {
+        it("has the right styling class for states when property is empty", () => {
+            const chart = build(new Component(WorkflowChart).with.mount()
+                .and.props({ transitions, states }));
+            const state = chart.find({ ref: 'static_state_new' });
+
+            expect(classesOf(state)).toEqual(["vue-workflow-chart-state"]);
+        });
+
+        it("has the right styling classes for states when property is passed", () => {
+            const chart = build(new Component(WorkflowChart).with.mount()
+                .and.props({ transitions, states, stateSemantics:stateSemantics }));
+            const state = chart.find({ ref: 'static_state_new' });
+
+            expect(classesOf(state)).toEqual(["vue-workflow-chart-state", "vue-workflow-chart-state-new"]);
+        });
+
+        it("has the right styling class for transitions when property is passed", () => {
+            const chart = build(new Component(WorkflowChart).with.mount()
+                .and.props({ transitions, states, stateSemantics:stateSemantics }));
+            const transitionWithTargetNew = findTransitionOf(chart);
+
+            expect(classesOf(transitionWithTargetNew)).toEqual(["vue-workflow-chart-transition-label", "vue-workflow-chart-transition-label-new"]);
+        });
+    });
+
     it("has transitions and states", () => {
         const chart = build(new Component(WorkflowChart)
             .and.props({ transitions, states }));
 
-        expect(layoutStatesOf(chart)).not.toEqual([]);
-        expect(layoutTransitionsOf(chart)).not.toEqual([]);
+        expect(layoutStatesOf(chart).length).not.toBe(0);
+        expect(layoutTransitionsOf(chart).length).not.toBe(0);
     });
 
     it("updates state", () => {
