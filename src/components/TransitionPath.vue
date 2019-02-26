@@ -38,13 +38,17 @@ export default {
             type: Array,
             required: true,
         },
+        radius: {
+            type: Number,
+            required: true,
+        },
         stylingClass: {
             type: String,
             default: '',
         },
     },
     data() {
-        const pathCreator = new Path();
+        const pathCreator = new Path(this.radius);
         pathCreator.setPath(this.path);
 
         return { pathCreator };

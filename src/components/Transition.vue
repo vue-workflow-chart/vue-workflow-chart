@@ -2,6 +2,7 @@
     <div>
         <transition-path
             :path="transitionPath"
+            :radius="transitionPathRadius"
             :stylingClass="stylingClass" />
         <chart-label
             ref="label"
@@ -30,6 +31,10 @@ export default {
         },
         transitionPath: {
             type: Array,
+            required: true,
+        },
+        transitionPathRadius: {
+            type: Number,
             required: true,
         },
         label: {

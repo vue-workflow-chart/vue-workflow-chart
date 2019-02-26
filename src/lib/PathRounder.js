@@ -2,7 +2,7 @@ import { cloneDeep } from 'lodash';
 
 export default class Path {
 
-    constructor(radius = 12) {
+    constructor(radius) {
         this.path='';
         this.radius = radius;
     }

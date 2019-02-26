@@ -15,6 +15,7 @@
             :ref="transition.id"
             :key="transition.id"
             :transitionPath="transition.path"
+            :transitionPathRadius="transitionPathRadius"
             :label="transition.label"
             :stylingClass="transition.stylingClass"
             @click="$emit('transition-click', $event)" />
@@ -46,6 +47,11 @@ export default {
         stateSemantics: {
             type: Array,
             default: () => [],
+        },
+        transitionPathRadius: {
+            type: Number,
+            required: false,
+            default: 12,
         },
     },
     data() {
