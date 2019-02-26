@@ -34,29 +34,29 @@ const layoutStatesOf = (chart) => chart.vm.layoutStates;
 
 const layoutTransitionsOf = (chart) => chart.vm.layoutTransitions;
 
-const orientationOf = chart => chart.vm.layoutOrientation;
+const orientationOf = chart => chart.vm.layoutOrientation();
 
 const horizontal = "LR";
 
-const vertical = "TD";
+const vertical = "TB";
 
 describe("Workflow Chart component", ()  => {
     describe("orientation", () => {
-        xit("is horizontal as default", () => {
+        it("is horizontal as default", () => {
             const chart = build(new Component(WorkflowChart)
                 .and.props({ transitions, states }));
 
             expect(orientationOf(chart)).toBe(horizontal);
         });
 
-        xit("is vertical when passed", () => {
+        it("is vertical when passed", () => {
             const chart = build(new Component(WorkflowChart)
                 .and.props({ transitions, states, orientation: "vertical" }));
 
             expect(orientationOf(chart)).toBe(vertical);
         });
 
-        xit("is horizontal when passed prop is wrong", () =>{
+        it("is horizontal when passed prop is wrong", () =>{
             const chart = build(new Component(WorkflowChart)
                 .and.props({ transitions, states, orientation: "WrongOrientation" }));
 

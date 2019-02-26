@@ -59,7 +59,7 @@ export default {
     },
     computed: {
         layout() {
-            const layout = new Layout();
+            const layout = new Layout(this.layoutOrientation());
 
             const states = this.states
                 .map(this.includeSizeWithClasses('vue-workflow-chart-state'))
@@ -107,6 +107,9 @@ export default {
                 }
             }
             return transition;
+        },
+        layoutOrientation() {
+            return (this.orientation === 'vertical') ? 'TB' : 'LR';
         },
     },
 };
