@@ -1,6 +1,5 @@
 <template>
     <div
-        :class="styleClass"
         :style="position"
         @click="$emit('click')"
         v-text="text" />
@@ -11,10 +10,6 @@
 export default {
     name: 'Label',
     props: {
-        styleClass: {
-            type: String,
-            default: '',
-        },
         text: {
             type: String,
             required: true,

@@ -2,7 +2,8 @@
     <div id="app">
         <workflow-chart
             :transitions="transitions"
-            :states="states" />
+            :states="states"
+            :stateSemantics="stateSemantics" />
     </div>
 </template>
 
@@ -77,14 +78,59 @@ export default {
             "target": "Tu2vqbl",
             "source": "J4zloua",
         }],
+        stateSemantics: [{
+            "classname": "delete",
+            "id":"static_state_deleted",
+        }],
     }),
+    created() {
+        const approveLabel = state => state.label === 'Freigegeben';
+        const semantic = item => ({ id: item.id, classname: 'approve' });
+
+        const approvedState = this.states.filter(approveLabel).map(semantic);
+        this.stateSemantics = [ ...this.stateSemantics, ...approvedState ];
+    },
 };
 </script>
-<style>
+<style lang="scss">
+@import '../src/styling.scss';
+$approve-color: #1eb2a4;
+$delete-color: #d64b61;
 #app {
+    width: 90%;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 10%;
-    width: 90%;
+    margin-top: 15%;
+}
+.vue-workflow-chart-state {
+    &-approve {
+        color: white;
+        background: $approve-color;
+    }
+
+    &-delete {
+        color: white;
+        background: $delete-color;
+    }
+}
+
+.vue-workflow-chart-transition-arrow {
+    &-approve {
+        fill: $approve-color;
+    }
+
+    &-delete {
+        fill: $delete-color;
+    }
+}
+
+.vue-workflow-chart-transition-path {
+    &-approve {
+        stroke: $approve-color;
+    }
+
+    &-delete {
+        stroke: $delete-color;
+    }
 }
 </style>

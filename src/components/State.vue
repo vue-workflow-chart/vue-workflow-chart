@@ -1,13 +1,14 @@
 <template>
     <chart-label
-        styleClass="vue-workflow-chart-state"
+        class="vue-workflow-chart-state"
+        :class="stylingClassState"
         :anchor="center"
         :text="label"
         @click="$emit('click', id)" />
 </template>
 
 <script>
-import Label from './Label.vue';
+import Label from "./Label.vue";
 
 export default {
     name: "State",
@@ -23,9 +24,18 @@ export default {
             type: String,
             required: true,
         },
+        stylingClass: {
+            type: String,
+            default: "",
+        },
         center: {
             type: Object,
             required: true,
+        },
+    },
+    computed: {
+        stylingClassState() {
+            return (this.stylingClass) ? `vue-workflow-chart-state-${this.stylingClass}` : "";
         },
     },
 };

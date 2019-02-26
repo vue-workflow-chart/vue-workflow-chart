@@ -7,6 +7,7 @@
             :key="state.id"
             :label="state.label"
             :center="state.center"
+            :stylingClass="state.stylingClass"
             @click="$emit('state-click', $event)" />
         <chart-transition
             v-for="transition in layoutTransitions"
@@ -15,6 +16,7 @@
             :key="transition.id"
             :transitionPath="transition.path"
             :label="transition.label"
+            :stylingClass="transition.stylingClass"
             @click="$emit('transition-click', $event)" />
     </div>
 </template>
@@ -40,6 +42,10 @@ export default {
         states: {
             type: Array,
             required: true,
+        },
+        stateSemantics: {
+            type: Array,
+            default: () => [],
         },
     },
     data() {
@@ -84,18 +90,33 @@ export default {
         includeSizeWithClasses(classes) {
             return item => ({ ...item, ...size.ofDivWith(item, classes) });
         },
+        addStateStylingClass(state) {
+            for(const semantic of this.stateSemantics){
+                if(semantic.id === state.id){
+                    return { ...state, stylingClass:semantic.classname };
+                }
+            }
+            return state;
+        },
+        addTransitionStylingClass(transition){
+            for(const semantic of this.stateSemantics){
+                if(semantic.id === transition.target){
+                    return { ...transition, stylingClass:semantic.classname };
+                }
+            }
+            return transition;
+        },
         setup(layout) {
             const states = this.states
-                .map(this.includeSizeWithClasses('vue-workflow-chart-state'));
+                .map(this.includeSizeWithClasses('vue-workflow-chart-state')).map(this.addStateStylingClass);
             layout.setStates(states);
             const transitions = this.transitions.
-                map(this.includeSizeWithClasses('vue-workflow-chart-transition-label'));
+                map(this.includeSizeWithClasses('vue-workflow-chart-transition-label')).map(this.addTransitionStylingClass);
             layout.setTransitions(transitions);
         },
     },
 };
 </script>
-
 <style lang='scss'>
 @import '../styling.scss';
 </style>

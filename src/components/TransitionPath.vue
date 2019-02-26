@@ -14,6 +14,7 @@
                     orient="auto-start-reverse">
                     <path
                         class="vue-workflow-chart-transition-arrow"
+                        :class="stylingClassArrow"
                         d="M 0 0 L 10 5 L 0 10 z" />
                 </marker>
             </defs>
@@ -21,7 +22,8 @@
                 ref="transitionPath"
                 :d="svgPath"
                 :marker-end="'url(#markerArrow'+_uid+')'"
-                class="vue-workflow-chart-transition-path" />
+                class="vue-workflow-chart-transition-path"
+                :class="stylingClassPath" />
         </g>
     </svg>
 </template>
@@ -35,6 +37,10 @@ export default {
         path: {
             type: Array,
             required: true,
+        },
+        stylingClass: {
+            type: String,
+            default: '',
         },
     },
     data() {
@@ -52,6 +58,12 @@ export default {
         },
         height() {
             return this.lengthIn(point => point.y);
+        },
+        stylingClassPath() {
+            return (this.stylingClass) ? `vue-workflow-chart-transition-path-${this.stylingClass}` : "";
+        },
+        stylingClassArrow() {
+            return (this.stylingClass) ? `vue-workflow-chart-transition-arrow-${this.stylingClass}` : "";
         },
     },
     watch: {
