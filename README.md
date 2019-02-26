@@ -5,7 +5,15 @@ Workflow Charts for vue.js [![Build Status](https://cloud.drone.io/api/badges/vu
  [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
  ========================
 
-<!-- TOC -->autoauto- [What is vue-workflow-chart?](#what-is-vue-workflow-chart)auto- [Requirements](#requirements)auto- [Installation](#installation)auto- [Example](#example)auto- [Click events](#click-events)auto- [Giving states a semantic](#giving-states-a-semantic)auto- [Contributing](#contributing)auto- [Code of conduct](#code-of-conduct)auto- [LICENSE](#license)autoauto<!-- /TOC -->
+ - [What is vue-workflow-chart?](#what-is-vue-workflow-chart)
+ - [Requirements](#requirements)
+ - [Installation](#installation)
+ - [Example](#example)
+ - [Click events](#click-events)
+ - [Giving states a semantic](#giving-states-a-semantic)
+ - [Contributing](#contributing)
+ - [Code of conduct](#code-of-conduct)
+ - [LICENSE](#license)
 
 ## What is vue-workflow-chart?
 
