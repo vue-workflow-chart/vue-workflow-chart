@@ -1,11 +1,18 @@
 {
   "name": "vue-workflow-chart",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "private": false,
   "author": {
     "name": "vue-workflow-chart"
   },
-  "keywords": ["vue", "workflow", "chart", "dagre", "json", "css"],
+  "keywords": [
+    "vue",
+    "workflow",
+    "chart",
+    "dagre",
+    "json",
+    "css"
+  ],
   "description": "workflow charts for vue.js",
   "license": "GPL-3.0-or-later",
   "repository": "https://github.com/vue-workflow-chart/vue-workflow-chart",
@@ -38,8 +45,8 @@
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0",
     "node-sass": "^4.11.0",
+    "pre-commit": "^1.2.2",
     "sass-loader": "^7.1.0",
-    "vue-template-compiler": "^2.5.21",
-    "pre-commit": "^1.2.2"
+    "vue-template-compiler": "^2.5.21"
   }
 }
