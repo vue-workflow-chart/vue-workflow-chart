@@ -117,7 +117,9 @@ export default {
     },
 };
 </script>
-
+<style lang='scss'>
+@import '../styling.scss';
+</style>
 <style lang='scss' scoped>
 div {
     position: absolute;
