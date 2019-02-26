@@ -49,9 +49,7 @@ export default {
     },
     computed: {
         stylingClassLabel() {
-            let stylingClass = 'vue-workflow-chart-transition-label';
-            stylingClass += (this.stylingClass) ? `-${this.stylingClass}` : '';
-            return stylingClass;
+            return (this.stylingClass) ? `vue-workflow-chart-transition-label-${this.stylingClass}` : "";
         },
     },
 };

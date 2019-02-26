@@ -35,9 +35,7 @@ export default {
     },
     computed: {
         stylingClassState() {
-            let ret = "vue-workflow-chart-state";
-            ret += this.stylingClass ? `-${this.stylingClass}` : "";
-            return ret;
+            return (this.stylingClass) ? `vue-workflow-chart-state-${this.stylingClass}` : "";
         },
     },
 };

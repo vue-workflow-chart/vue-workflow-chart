@@ -12,8 +12,8 @@ export default class Layout {
         for (const state of states) {
             const width = state.width ? state.width : 20;
             const height = state.height ? state.height : 10;
-            const styleClass = state.stylingClass;
-            this._graph.setNode(state.id, { label: state.label, width, height, styleClass });
+            const stylingClass = state.stylingClass;
+            this._graph.setNode(state.id, { label: state.label, width, height, stylingClass });
         }
         layout(this._graph);
     }
@@ -28,7 +28,7 @@ export default class Layout {
                     x: node.x,
                     y: node.y,
                 },
-                stylingClass: node.styleClass,
+                stylingClass: node.stylingClass,
             };
         });
     }

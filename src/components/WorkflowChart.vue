@@ -45,7 +45,7 @@ export default {
         },
         stateSemantics: {
             type: Array,
-            required: true,
+            default: () => [],
         },
     },
     data() {

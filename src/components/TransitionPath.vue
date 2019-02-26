@@ -40,7 +40,7 @@ export default {
         },
         stylingClass: {
             type: String,
-            required: true,
+            default: '',
         },
     },
     data() {
@@ -60,14 +60,10 @@ export default {
             return this.lengthIn(point => point.y);
         },
         stylingClassPath() {
-            let ret = 'vue-workflow-chart-transition-path';
-            ret += this.stylingClass ? `-${this.stylingClass}` : '';
-            return ret;
+            return (this.stylingClass) ? `vue-workflow-chart-transition-path-${this.stylingClass}` : "";
         },
         stylingClassArrow() {
-            let ret = 'vue-workflow-chart-transition-arrow';
-            ret += this.stylingClass ? `-${this.stylingClass}` : '';
-            return ret;
+            return (this.stylingClass) ? `vue-workflow-chart-transition-arrow-${this.stylingClass}` : "";
         },
     },
     watch: {

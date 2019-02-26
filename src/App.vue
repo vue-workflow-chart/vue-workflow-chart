@@ -32,7 +32,7 @@ export default {
             "id": "static_state_deleted",
             "label": "Gelöscht",
         }, {
-            "id": "new",
+            "id": "static_state_new",
             "label": "Neu",
         }],
         transitions: [{
@@ -43,7 +43,7 @@ export default {
         }, {
             "id": "Ev0huzn",
             "label": "wiederherstellen",
-            "target": "new",
+            "target": "static_state_new",
             "source": "static_state_deleted",
         }, {
             "id": "Fst7op",
@@ -69,7 +69,7 @@ export default {
             "id": "Stf8g2b",
             "label": "Antrag Überarbeiten",
             "target": "J4zloua",
-            "source": "new",
+            "source": "static_state_new",
         }, {
             "id": "Tznk4f5",
             "label": "Neue Überarbeitung starten",
