@@ -21,63 +21,63 @@ export default {
     data: () => ({
         states: [{
             "id": "J4zloua",
-            "label": "Überarbeitung",
+            "label": "Auditing",
         }, {
             "id": "Jcxrmx",
-            "label": "Freigegeben",
+            "label": "Released",
         }, {
             "id": "Tu2vqbl",
-            "label": "Prüfung durch Verantwortlichen",
+            "label": "Verification by responsible",
         }, {
             "id": "static_state_deleted",
-            "label": "Gelöscht",
+            "label": "Deleted",
         }, {
             "id": "static_state_new",
-            "label": "Neu",
+            "label": "New",
         }],
         transitions: [{
             "id": "Dz2un1r",
-            "label": "Um Überarbeitung bitten",
+            "label": "ask for auditing",
             "target": "J4zloua",
             "source": "Tu2vqbl",
         }, {
             "id": "Ev0huzn",
-            "label": "wiederherstellen",
+            "label": "restore",
             "target": "static_state_new",
             "source": "static_state_deleted",
         }, {
             "id": "Fst7op",
-            "label": "Freigeben",
+            "label": "release",
             "target": "Jcxrmx",
             "source": "Tu2vqbl",
         }, {
             "id": "Lwed6qb",
-            "label": "Entwurf verwerfen",
+            "label": "discard draft",
             "target": "static_state_deleted",
             "source": "Tu2vqbl",
         }, {
             "id": "Mmpn8w",
-            "label": "Antrag verwerfen",
+            "label": "discard request",
             "target": "static_state_deleted",
             "source": "J4zloua",
         }, {
             "id": "Qw136br",
-            "label": "Löschen",
+            "label": "delete",
             "target": "static_state_deleted",
             "source": "Jcxrmx",
         }, {
             "id": "Stf8g2b",
-            "label": "Antrag Überarbeiten",
+            "label": "revise request",
             "target": "J4zloua",
             "source": "static_state_new",
         }, {
             "id": "Tznk4f5",
-            "label": "Neue Überarbeitung starten",
+            "label": "start new revision",
             "target": "J4zloua",
             "source": "Jcxrmx",
         }, {
             "id": "Usvtzqi",
-            "label": "Überarbeitung freigeben",
+            "label": "release revision",
             "target": "Tu2vqbl",
             "source": "J4zloua",
         }],
