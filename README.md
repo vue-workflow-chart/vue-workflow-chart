@@ -110,6 +110,71 @@ Clicking the state will trigger the state-click event. In the workflow-chart, th
 
 For another example see [example/App.vue](./example/App.vue).
 
+## Giving states a semantic
+
+Single states can be given a special semantic by passing an additional class name. The state and
+its targeting transitions can be styled accordingly.
+
+The classes to be styled with its suffixes are
+
+* `.vue-workflow-chart-state-` for the state
+* `.vue-workflow-chart-transition-arrow-` for the arrow of the transition path
+* `.vue-workflow-chart-transition-path-` for the transition path
+
+
+```html
+<template>
+    <workflow-chart
+        :transitions="transitions"
+        :states="states"
+        :stateSemantics="stateSemantics" />
+</template>
+<script>
+import WorkflowChart from 'vue-workflow-chart';
+
+export default {
+    components: {
+        WorkflowChart,
+    },
+    data: () => ({
+        states: [{
+            "id": "static_state_deleted",
+            "label": "Deleted",
+        }, {
+            "id": "static_state_new",
+            "label": "New",
+        }],
+        transitions: [{
+            'id': 'delete',
+            'label': 'delete',
+            'target': 'static_state_deleted',
+            'source': 'static_state_new',
+        }],
+        stateSemantics: [{
+            "classname": "delete",
+            "id":"static_state_deleted",
+        }],
+    }),
+};
+</script>
+<style lang="scss">
+@import '~vue-workflow-chart/dist/vue-workflow-chart.css';
+
+.vue-workflow-chart-state-delete {
+    color: white;
+    background: red;
+}
+
+.vue-workflow-chart-transition-arrow-delete {
+    fill: red;
+}
+
+.vue-workflow-chart-transition-path-delete {
+    stroke: red;
+}
+</stle>
+```
+
 ## Contributing
 
 [Contributing](./CONTRIBUTING.md)
