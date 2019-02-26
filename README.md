@@ -69,7 +69,7 @@ For a more complex example see [example/App.vue](./example/App.vue).
 
 ## Click events
 
-As you click on a state or a transmission, these elements emit an event. For a state, this will be a 'state-click' with the id of the element as parameter. Transmissions emit a 'transmission-click' with id. 
+As you click on a state or a transition, these elements emit an event. For a state, this will be a 'state-click' with the id of the element as parameter. Transitions emit a 'transition-click' with id. 
 
 See the minimal example below:
 
