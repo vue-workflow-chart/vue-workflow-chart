@@ -9,14 +9,14 @@ describe("The path rounder", () => {
     });
 
     it("creates straight line", () => {
-        const path = new Path();
+        const path = new Path(12);
         path.setPath([ { x: 0, y: 0 }, { x:10, y:10 } ]);
 
         expect(path.svgPath).toBe("M0 0 L10 10");
     });
 
-    it("creates path with rounded corner with radius 12 by default", () => {
-        const path = new Path();
+    it("creates path with rounded corner with radius 12", () => {
+        const path = new Path(12);
         path.setPath([ { x: 0, y: 0 }, { x:0, y:30 }, { x: 30, y: 30 } ]);
 
         expect(path.svgPath).toBe("M0 0 L0 18 Q0 30 12 30 L30 30");

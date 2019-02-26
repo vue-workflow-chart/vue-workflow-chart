@@ -40,7 +40,7 @@ export default {
         },
         radius: {
             type: Number,
-            required: true,
+            required: false,
         },
         stylingClass: {
             type: String,

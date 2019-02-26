@@ -35,7 +35,7 @@ export default {
         },
         transitionPathRadius: {
             type: Number,
-            required: true,
+            required: false,
         },
         label: {
             type: Object,
