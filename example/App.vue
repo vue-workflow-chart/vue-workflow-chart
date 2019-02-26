@@ -3,7 +3,9 @@
         <workflow-chart
             :transitions="transitions"
             :states="states"
-            :stateSemantics="stateSemantics" />
+            :stateSemantics="stateSemantics"
+            @state-click="clickHandler('state',$event)"
+            @transition-click="clickHandler('transition', $event)" />
     </div>
 </template>
 
@@ -90,6 +92,11 @@ export default {
         const approvedState = this.states.filter(approveLabel).map(semantic);
         this.stateSemantics = [ ...this.stateSemantics, ...approvedState ];
     },
+    methods: {
+        clickHandler(type, id) {
+            alert(`Clicked on ${type} with id: ${id}`);
+        },
+    },
 };
 </script>
 <style lang="scss">
@@ -100,7 +107,7 @@ $delete-color: #d64b61;
     width: 90%;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 15%;
+    margin-top: 10%;
 }
 .vue-workflow-chart-state {
     &-approve {
