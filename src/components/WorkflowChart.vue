@@ -1,7 +1,7 @@
 <template>
     <div class="workflow-chart">
         <state
-            v-for="state in layoutStates"
+            v-for="state in layout.states"
             :id="state.id"
             :ref="state.id"
             :key="state.id"
@@ -10,7 +10,7 @@
             :stylingClass="state.stylingClass"
             @click="$emit('state-click', $event)" />
         <chart-transition
-            v-for="transition in layoutTransitions"
+            v-for="transition in layout.transitions"
             :id="transition.id"
             :ref="transition.id"
             :key="transition.id"
@@ -57,47 +57,37 @@ export default {
             default: 'horizontal',
         },
     },
-    data() {
-        const layoutOrientation = (this.orientation === 'vertical') ? 'TD' : 'LR';
+    computed: {
+        layout() {
+            const layout = new Layout();
 
-        const layout = new Layout(layoutOrientation);
+            const states = this.states
+                .map(this.includeSizeWithClasses('vue-workflow-chart-state'))
+                .map(this.addStateStylingClass);
+            layout.setStates(states);
+            const transitions = this.transitions
+                .map(this.includeSizeWithClasses('vue-workflow-chart-transition-label'))
+                .map(this.addTransitionStylingClass);
+            layout.setTransitions(transitions);
 
-        this.setup(layout);
-
-        return {
-            layoutOrientation,
-            layout,
-            ...this.propsOf(layout),
-        };
+            return {
+                size: layout.size,
+                transitions: layout.transitions,
+                states: layout.states,
+            };
+        },
     },
     watch: {
-        transitions() {
-            this.setup(this.layout);
-            this.updateComputedLayout();
-        },
-        states() {
-            this.setup(this.layout);
-            this.updateComputedLayout();
+        layout() {
+            this.emitSize();
         },
     },
     mounted() {
-        return this.emitSize();
+        this.emitSize();
     },
     methods: {
         emitSize() {
             this.$emit('size-change', this.layout.size);
-        },
-        propsOf(layout) {
-            return {
-                layoutTransitions: layout.transitions,
-                layoutStates: layout.states,
-            };
-        },
-        updateComputedLayout() {
-            for (const [key, value] of Object.entries(this.propsOf(this.layout))) {
-                this[key] = value;
-            }
-            this.emitSize();
         },
         includeSizeWithClasses(classes) {
             return item => ({ ...item, ...size.ofDivWith(item, classes) });
@@ -117,14 +107,6 @@ export default {
                 }
             }
             return transition;
-        },
-        setup(layout) {
-            const states = this.states
-                .map(this.includeSizeWithClasses('vue-workflow-chart-state')).map(this.addStateStylingClass);
-            layout.setStates(states);
-            const transitions = this.transitions.
-                map(this.includeSizeWithClasses('vue-workflow-chart-transition-label')).map(this.addTransitionStylingClass);
-            layout.setTransitions(transitions);
         },
     },
 };

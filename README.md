@@ -7,7 +7,11 @@ Workflow Charts for vue.js [![Build Status](https://cloud.drone.io/api/badges/vu
 
 ## What does vue-workflow-chart do?
 
-With vue-workflow-chart you can model your own Workflow with states and transitions fully automatic when passing some data. Workflow charts are flowchart based types.
+Vue-Workflow-Chart is developed to visualize processes or workflows. In a company for example, workflows can get complicated and confusing very easily, so an illustration can help to understand the process.
+
+Consisting of states and transitions, these elements must be passed to vue-workflow-chart. This data will be modeled and rendered.
+
+As an OpenSource - project, vue-workflow-chart comes under the GPLv3 - license.
 
 ## Requirements
 
@@ -24,7 +28,44 @@ for the latest version.
 
 ## Example
 
-*TODO*
+A minimal example with two states and a transition from one to the other.
+```javascript
+<template>
+    <div id="app">
+        <workflow-chart
+            :transitions="transitions"
+            :states="states" />
+    </div>
+</template>
+
+<script>
+import WorkflowChart from 'vue-workflow-chart';
+
+export default {
+    name: "App",
+    components: {
+        WorkflowChart,
+    },
+    data: () => ({
+        states: [{
+            "id": "state_1",
+            "label": "State 1",
+        }, {
+            "id": "state_2",
+            "label": "State 2",
+        }],
+        transitions: [{
+            "id": "transition_1",
+            "label": "this is a transition",
+            "target": "state_2",
+            "source": "state_1",
+        }],
+    }),
+};
+</script>
+```
+
+For a more complex example see example/App.vue
 
 ## Contributing
 
