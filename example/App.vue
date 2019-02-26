@@ -5,6 +5,7 @@
             :transitions="transitions"
             :states="states"
             :stateSemantics="stateSemantics"
+            :orientation="'horizontal'"
             @state-click="onLabelClicked('state',$event)"
             @transition-click="onLabelClicked('transition', $event)"
             @size-change="sizeChanged" />
