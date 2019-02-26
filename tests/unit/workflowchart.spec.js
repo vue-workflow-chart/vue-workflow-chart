@@ -113,4 +113,14 @@ describe("Workflow Chart component", ()  => {
 
         expect(chart.emitted('transition-click')).toEqual([['delete']]);
     });
+
+    it("removes displayed state when state-prop is removed", () => {
+        const chart = build(new Component(WorkflowChart).mount()
+            .with.props({ transitions: [], states: [{ id: '1', label: 'Deleted' }] }));
+
+        chart.setProps({ states: [] });
+
+        expect(chart.text()).not.toEqual('Deleted');
+    });
+
 });

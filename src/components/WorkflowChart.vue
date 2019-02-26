@@ -54,12 +54,9 @@ export default {
             default: 12,
         },
     },
-    data: () => ({
-        layouter: new Layout(),
-    }),
     computed: {
         layout() {
-            const layout = this.layouter;
+            const layout = new Layout();
 
             const states = this.states
                 .map(this.includeSizeWithClasses('vue-workflow-chart-state'))
