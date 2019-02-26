@@ -9,13 +9,6 @@ describe("The chart label", () => {
         expect(label.text()).toBe('example');
     });
 
-    it("has css class", () => {
-        const label = build(new Component(Label)
-            .with.props({ text: 'example', styleClass: 'label' }));
-
-        expect(label.classes()).toContain('label');
-    });
-
     it("sets the anchor", () => {
         const label = build(new Component(Label)
             .with.props({ text: 'example', anchor: { x: 15, y: 20 } }));
