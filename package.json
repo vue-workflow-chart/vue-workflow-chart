@@ -18,7 +18,7 @@
   "main": "./dist/vue-workflow-chart.umd.js",
   "unpkg": "./dist/vue-workflow-chart.umd.min",
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "vue-cli-service serve ./example/main.js",
     "build": "vue-cli-service build --target lib --name vue-workflow-chart ./src/components/WorkflowChart.vue",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit"

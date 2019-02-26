@@ -1,8 +1,5 @@
 <template>
     <div id="app">
-        <img
-            alt="Vue logo"
-            src="./assets/logo.png">
         <workflow-chart
             :transitions="transitions"
             :states="states" />
@@ -10,7 +7,7 @@
 </template>
 
 <script>
-import WorkflowChart from './components/WorkflowChart.vue';
+import WorkflowChart from '../src/components/WorkflowChart.vue';
 
 export default {
     name: "App",
@@ -83,3 +80,11 @@ export default {
     }),
 };
 </script>
+<style>
+#app {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10%;
+    width: 90%;
+}
+</style>
