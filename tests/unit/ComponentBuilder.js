@@ -34,17 +34,7 @@ export class Component extends BaseComponent {
         return this;
     }
 
-    data(data) {
-        this._data = data;
-        return this;
-    }
-
-    options(options) {
-        Object.assign(this._options, options);
-        return this;
-    }
-
-    props(props = {}) {
+    props(props) {
         Object.assign(this._props, props);
         return this;
     }
@@ -57,10 +47,6 @@ export class Component extends BaseComponent {
             ...this._options,
             propsData: this._props,
         });
-
-        if (this._data) {
-            buildComponent.setData(this._data);
-        }
 
         return buildComponent;
     }

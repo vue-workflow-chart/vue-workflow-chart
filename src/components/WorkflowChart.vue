@@ -26,8 +26,8 @@
 import Transition from './Transition.vue';
 import State from './State.vue';
 import Layout from '../lib/layout';
-import { size } from '../lib/DivElement';
-
+import Workflow from '../lib/workflow';
+import { size as sizeCalculation } from '../lib/DivElement';
 
 export default {
     name: 'WorkflowChart',
@@ -59,22 +59,13 @@ export default {
     },
     computed: {
         layout() {
-            const layout = new Layout(this.layoutOrientation());
+            const workflow = new Workflow({ states: this.states, transitions: this.transitions });
 
-            const states = this.states
-                .map(this.includeSizeWithClasses('vue-workflow-chart-state'))
-                .map(this.addStateStylingClass);
-            layout.setStates(states);
-            const transitions = this.transitions
-                .map(this.includeSizeWithClasses('vue-workflow-chart-transition-label'))
-                .map(this.addTransitionStylingClass);
-            layout.setTransitions(transitions);
+            const workflowForLayouting = workflow
+                .addStylingClassesFor(this.stateSemantics)
+                .addLabelSize(sizeCalculation);
 
-            return {
-                size: layout.size,
-                transitions: layout.transitions,
-                states: layout.states,
-            };
+            return Layout.from(workflowForLayouting, this.orientation);
         },
     },
     watch: {
@@ -88,28 +79,6 @@ export default {
     methods: {
         emitSize() {
             this.$emit('size-change', this.layout.size);
-        },
-        includeSizeWithClasses(classes) {
-            return item => ({ ...item, ...size.ofDivWith(item, classes) });
-        },
-        addStateStylingClass(state) {
-            for(const semantic of this.stateSemantics){
-                if(semantic.id === state.id){
-                    return { ...state, stylingClass:semantic.classname };
-                }
-            }
-            return state;
-        },
-        addTransitionStylingClass(transition){
-            for(const semantic of this.stateSemantics){
-                if(semantic.id === transition.target){
-                    return { ...transition, stylingClass:semantic.classname };
-                }
-            }
-            return transition;
-        },
-        layoutOrientation() {
-            return (this.orientation === 'vertical') ? 'TB' : 'LR';
         },
     },
 };

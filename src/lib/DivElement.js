@@ -25,8 +25,7 @@ export class Size {
         this.element.classList = classes;
         this.content.nodeValue = item.label;
 
-        const size = this._getSizeOf(this.element);
-        return size;
+        return this._getSizeOf(this.element);
     }
 
     _createElementWhenBodyExists() {

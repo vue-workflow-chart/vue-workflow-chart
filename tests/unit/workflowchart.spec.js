@@ -1,5 +1,6 @@
 import WorkflowChart from '../../src/components/WorkflowChart.vue';
 import { Component, build } from './ComponentBuilder';
+import { size } from '../../src/lib/DivElement';
 
 const transitions = [{
     id: "Kj7tqn",
@@ -37,44 +38,46 @@ const stateSemantics= [{
     id: "static_state_deleted",
 }];
 
-const layoutStatesOf = (chart) => chart.vm.layout.states;
 
 const layoutTransitionsOf = (chart) => chart.vm.layout.transitions;
 
-const orientationOf = chart => chart.vm.layoutOrientation();
-
-const horizontal = "LR";
-
-const vertical = "TB";
+const orientationOf = chart => {
+    const states = chart.vm.layout.states;
+    const last = 1;
+    const delta = coord => Math.abs(states[last].center[coord] - states[0].center[coord]);
+    const dx = delta('x');
+    const dy = delta('y');
+    if (dy > 4*dx) {
+        return 'vertical';
+    } else if (dx > 4*dy) {
+        return 'horizontal';
+    } else {
+        return 'not decided';
+    }
+};
 
 const classesOf = state => state.classes();
 
-const filterLayoutTransitionsWhereStylingClassIsNew = chart => layoutTransitionsOf(chart).filter(item => item.stylingClass === "new");
+const filterLayoutTransitionsWhereStylingClassIsNew = chart =>
+    layoutTransitionsOf(chart).filter(item => item.stylingClass === "new");
 
-const findTransitionOf = (chart) => chart.find({ ref:filterLayoutTransitionsWhereStylingClassIsNew(chart)[0].id }).find({ ref:"label" });
+const findTransitionOf = (chart) =>
+    chart.find({ ref: filterLayoutTransitionsWhereStylingClassIsNew(chart)[0].id })
+        .find({ ref: 'label' });
 
 
 describe("Workflow Chart component", ()  => {
+
+    beforeEach(() => {
+        size._getSizeOf = () => ({ width: 20, height: 10 });
+    });
+
     describe("orientation", () => {
-        it("is horizontal as default", () => {
-            const chart = build(new Component(WorkflowChart)
-                .and.props({ transitions, states }));
-
-            expect(orientationOf(chart)).toBe(horizontal);
-        });
-
         it("is vertical when passed", () => {
             const chart = build(new Component(WorkflowChart)
-                .and.props({ transitions, states, orientation: "vertical" }));
+                .with.props({ transitions, states, orientation: 'vertical' }));
 
-            expect(orientationOf(chart)).toBe(vertical);
-        });
-
-        it("is horizontal when passed prop is wrong", () =>{
-            const chart = build(new Component(WorkflowChart)
-                .and.props({ transitions, states, orientation: "WrongOrientation" }));
-
-            expect(orientationOf(chart)).toBe(horizontal);
+            expect(orientationOf(chart)).toBe('vertical');
         });
     });
 
@@ -97,19 +100,11 @@ describe("Workflow Chart component", ()  => {
 
         it("has the right styling class for transitions when property is passed", () => {
             const chart = build(new Component(WorkflowChart).with.mount()
-                .and.props({ transitions, states, stateSemantics:stateSemantics }));
+                .and.props({ transitions, states, stateSemantics }));
             const transitionWithTargetNew = findTransitionOf(chart);
 
             expect(classesOf(transitionWithTargetNew)).toEqual(["vue-workflow-chart-transition-label", "vue-workflow-chart-transition-label-new"]);
         });
-    });
-
-    it("has transitions and states", () => {
-        const chart = build(new Component(WorkflowChart)
-            .and.props({ transitions, states }));
-
-        expect(layoutStatesOf(chart).length).not.toBe(0);
-        expect(layoutTransitionsOf(chart).length).not.toBe(0);
     });
 
     it("updates state", () => {
@@ -171,7 +166,7 @@ describe("Workflow Chart component", ()  => {
         expect(chart.emitted('state-click')).toEqual([['1']]);
     });
 
-    it("emits state-click with id when state is clicked", () => {
+    it("emits transition-click with id when transition is clicked", () => {
         const chart = build(new Component(WorkflowChart).mount()
             .with.props({ transitions, states }));
         const transitionLabel = chart.find({ ref: "delete" }).find({ ref: 'label' });

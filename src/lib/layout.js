@@ -3,19 +3,42 @@ import { graphlib, layout } from 'dagre';
 
 export default class Layout {
 
-    constructor(orientation) {
-        this._graph = new graphlib.Graph();
-        this._graph.setGraph({ rankdir: orientation });
+    static from(workflow, orientation) {
+        const layout = new Layout(orientation);
+        layout.setWorkflow(workflow);
+
+        return layout;
     }
 
-    setStates(states) {
-        for (const state of states) {
-            const width = state.width ? state.width : 20;
-            const height = state.height ? state.height : 10;
-            const stylingClass = state.stylingClass;
-            this._graph.setNode(state.id, { label: state.label, width, height, stylingClass });
-        }
+    constructor(orientation) {
+        const rankdir = orientation === 'vertical' ? 'TB' : 'LR';
+        this._graph = new graphlib.Graph();
+        this._graph.setGraph({ rankdir });
+    }
+
+    setWorkflow(workflow) {
+        this._setStates(workflow.states);
+        this._setTransitions(workflow.transitions);
         layout(this._graph);
+    }
+
+    _setStates(states) {
+        for (const { id, label, width, height, stylingClass } of states) {
+            this._graph.setNode(id, { label, width, height, stylingClass });
+        }
+    }
+
+    _setTransitions(transitions) {
+        for (const transition of transitions) {
+            this._graph.setEdge(transition.source, transition.target, {
+                id: transition.id,
+                label: transition.label ? transition.label : '',
+                width: transition.width,
+                height: transition.height,
+                labelpos: 'c',
+                stylingClass: transition.stylingClass,
+            });
+        }
     }
 
     get states() {
@@ -31,20 +54,6 @@ export default class Layout {
                 stylingClass: node.stylingClass,
             };
         });
-    }
-
-    setTransitions(transitions) {
-        for (const transition of transitions) {
-            this._graph.setEdge(transition.source, transition.target, {
-                id: transition.id,
-                label: transition.label ? transition.label : '',
-                width: transition.width ? transition.width : 20,
-                height: transition.height ? transition.height : 10,
-                labelpos: 'c',
-                stylingClass: transition.stylingClass,
-            });
-        }
-        layout(this._graph);
     }
 
     get transitions() {
