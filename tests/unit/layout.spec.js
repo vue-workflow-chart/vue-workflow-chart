@@ -1,5 +1,8 @@
 import Layout from '../../src/lib/layout';
 import { WorkflowTester } from './tester/workflow';
+import { installOrientationMatcher, orientation } from './tester/layout';
+
+const { VERTICAL, HORIZONTAL } = orientation;
 
 
 const centerOf = (label, items) =>
@@ -87,40 +90,28 @@ describe("the layout component", () => {
 
     describe("orientation", () => {
 
-        const HORIZONTAL = 'horizontal';
-        const VERTICAL = 'vertical';
+        const pathsOf = transitions => transitions.map(transition => transition.path);
 
-        const orientationOf = layout => {
-            const states = layout.states;
-            const last = states.length - 1;
-            const delta = coord => Math.abs(states[last].center[coord] - states[0].center[coord]);
-            const dx = delta('x');
-            const dy = delta('y');
-            if (dy > 4*dx) {
-                return VERTICAL;
-            } else if (dx > 4*dy) {
-                return HORIZONTAL;
-            } else {
-                return 'not decided';
-            }
-        };
+        beforeAll(() => {
+            installOrientationMatcher();
+        });
 
         it("is horizontal by default", () => {
             const layout = Layout.from(simpleWorkflow);
 
-            expect(orientationOf(layout)).toBe(HORIZONTAL);
+            expect(pathsOf(layout.transitions)).toHaveOrientation(HORIZONTAL);
         });
 
         it("is vertical when passed", () => {
             const layout = Layout.from(simpleWorkflow, 'vertical');
 
-            expect(orientationOf(layout)).toBe(VERTICAL);
+            expect(pathsOf(layout.transitions)).toHaveOrientation(VERTICAL);
         });
 
         it("is horizontal when passed prop is wrong", () => {
             const layout = Layout.from(simpleWorkflow, 'WrongOrientation');
 
-            expect(orientationOf(layout)).toBe(HORIZONTAL);
+            expect(pathsOf(layout.transitions)).toHaveOrientation(HORIZONTAL);
         });
     });
 });
