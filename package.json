@@ -17,7 +17,7 @@
   "license": "GPL-3.0-or-later",
   "repository": "https://github.com/vue-workflow-chart/vue-workflow-chart",
   "main": "./dist/vue-workflow-chart.umd.js",
-  "unpkg": "./dist/vue-workflow-chart.umd.min",
+  "unpkg": "./dist/vue-workflow-chart.umd.min.js",
   "scripts": {
     "serve": "vue-cli-service serve ./example/main.js",
     "build": "vue-cli-service build --target lib --name vue-workflow-chart ./src/components/WorkflowChart.vue",
@@ -29,7 +29,9 @@
     "test:unit"
   ],
   "dependencies": {
-    "dagre": "^0.8.4",
+    "dagre": "^0.8.4"
+  },
+  "peerDependencies": {
     "vue": "^2.5.21"
   },
   "devDependencies": {
@@ -47,6 +49,7 @@
     "node-sass": "^4.11.0",
     "pre-commit": "^1.2.2",
     "sass-loader": "^7.1.0",
+    "vue": "^2.5.21",
     "vue-template-compiler": "^2.5.21"
   }
 }
