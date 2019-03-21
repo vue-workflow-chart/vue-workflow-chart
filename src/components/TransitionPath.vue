@@ -11,7 +11,7 @@
                     markerHeight="3"
                     refX="5"
                     refY="5"
-                    orient="auto-start-reverse">
+                    orient="auto">
                     <path
                         class="vue-workflow-chart-transition-arrow"
                         :class="stylingClassArrow"

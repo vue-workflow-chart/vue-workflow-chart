@@ -32,7 +32,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 div {
-    display: flex;
+    display: flex 1 0 0;
     flex-wrap: wrap;
     position: absolute;
     transform: translate(-50%, -50%);

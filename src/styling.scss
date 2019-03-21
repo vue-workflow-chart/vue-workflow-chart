@@ -3,6 +3,7 @@ $text-color: #11353D;
 $default-font-family: "Open Sans" !default;
 $default-font-size: 14px;
 $arrow-color: #84878a;
+$arrow-stroke-width: 1;
 $marker-definition: url(#markerArrow);
 
 .vue-workflow-chart-state {
@@ -46,6 +47,7 @@ $marker-definition: url(#markerArrow);
 
 .vue-workflow-chart-transition-arrow {
   fill: $arrow-color;
+  stroke-width: $arrow-stroke-width;
 }
 .vue-workflow-chart-transition-path {
   fill: none;

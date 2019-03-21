@@ -22,7 +22,7 @@ export class Size {
         if (!this.element) {
             this._createElementWhenBodyExists();
         }
-        this.element.classList = classes;
+        this.element.setAttribute('class', classes);
         this.content.nodeValue = item.label;
 
         return this._getSizeOf(this.element);
