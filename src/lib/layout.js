@@ -1,4 +1,4 @@
-import { graphlib, layout } from 'dagre';
+import dagre, { layout } from 'dagre';
 
 
 export default class Layout {
@@ -12,8 +12,7 @@ export default class Layout {
 
     constructor(orientation) {
         const rankdir = orientation === 'vertical' ? 'TB' : 'LR';
-        this._graph = new graphlib.Graph();
-        this._graph.setGraph({ rankdir });
+        this._graph = new dagre.graphlib.Graph().setGraph({ rankdir });
     }
 
     setWorkflow(workflow) {
