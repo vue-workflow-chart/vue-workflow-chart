@@ -119,7 +119,7 @@ export default {
 </script>
 ```
 
-Clicking the state will trigger the state-click event. In the workflow-chart, this event will fire the 'onStateClick' - method. As a result, the alert with text "Clicked on state with id: state_1" will show. 
+Clicking the state will trigger the state-click event. In the workflow-chart, this event will fire the 'onStateClick' - method. As a result, the alert with text "Clicked on state with id: state_1" will show.
 
 For another example see [example/App.vue](./example/App.vue).
 
@@ -202,8 +202,6 @@ export default {
 ## Contributing
 
 [Contributing](./CONTRIBUTING.md)
-
-🔥 [Our Contributors](./Contributors.md) 🔥
 
 ## Code of conduct
 
