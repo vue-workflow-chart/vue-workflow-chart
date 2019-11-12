@@ -1,0 +1,13 @@
+name: Build
+on: [push]
+
+jobs:
+  test:
+    name: Run Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Run install
+        run: yarn
+      - name: Run build
+        run: yarn build

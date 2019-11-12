@@ -1,0 +1,13 @@
+name: Tests and coverage
+on: [push]
+
+jobs:
+  test:
+    name: Run all unit tests and collect coverage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Run install
+        run: yarn
+      - name: Run unit tests and collect coverage
+        run: yarn test:unit --coverage
