@@ -1,5 +1,11 @@
 import dagre, { layout } from 'dagre';
 
+if (!Array.isArray) {
+    console.log('criando isArray');
+    Array.isArray = function(arg) {
+        return Object.prototype.toString.call(arg) === '[object Array]';
+    };
+}
 
 export default class Layout {
 
@@ -29,6 +35,54 @@ export default class Layout {
 
     _setTransitions(transitions) {
         for (const transition of transitions) {
+            if (Array.isArray(transition.target)) {
+                let targetIdx = 0;
+
+                for(const target of transition.target) {
+                    targetIdx++;
+
+                    let targetState = this._graph.node(target);
+
+                    this._graph.setEdge(
+                        transition.source,
+                        target, {
+                            id: transition.id + '_' + targetIdx,
+                            label: targetState.label ? targetState.label : '',
+                            width: targetState.width,
+                            height: targetState.height,
+                            labelpos: 'c',
+                            stylingClass: transition.stylingClass,
+                        }
+                    );
+                }
+
+                continue;
+            }
+
+            if (Array.isArray(transition.source)) {
+                let sourceIdx = 0;
+
+                for(const source of transition.source) {
+                    sourceIdx++;
+
+                    let sourceState = this._graph.node(source);
+
+                    this._graph.setEdge(
+                        source,
+                        transition.target, {
+                            id: transition.id + '_' + sourceIdx,
+                            label: sourceState.label ? sourceState.label : '',
+                            width: sourceState.width,
+                            height: sourceState.height,
+                            labelpos: 'c',
+                            stylingClass: transition.stylingClass,
+                        }
+                    );
+                }
+
+                continue;
+            }
+
             this._graph.setEdge(transition.source, transition.target, {
                 id: transition.id,
                 label: transition.label ? transition.label : '',
