@@ -14,12 +14,12 @@ class TransitionComponent extends Component {
 }
 
 const pathAttributeOf = (transition) => {
-    const path = transition.find({ name: 'TransitionPath' })
-        .find({ ref:"transitionPath" });
+    const path = transition.findComponent({ name: 'TransitionPath' })
+        .findComponent({ ref:"transitionPath" });
     return path.attributes('d');
 };
 
-const labelOf = (transition) => transition.find({ ref: 'label' });
+const labelOf = (transition) => transition.findComponent({ ref: 'label' });
 
 
 describe("The transition component", () => {
