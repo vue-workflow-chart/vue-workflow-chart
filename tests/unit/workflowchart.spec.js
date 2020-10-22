@@ -1,7 +1,6 @@
 import WorkflowChart from '../../src/components/WorkflowChart.vue';
 import { Component, build } from './ComponentBuilder';
 import { size } from '../../src/lib/DivElement';
-import { shallowMount } from '@vue/test-utils'
 
 const transitions = [{
     id: "Kj7tqn",
@@ -115,7 +114,7 @@ describe("Workflow Chart component", ()  => {
         chart.setProps({ states: [{ id: 'new', label: 'Other label' }] });
         await chart.vm.$nextTick();
 
-        const state = chart.findComponent({ ref: 'new' }); 
+        const state = chart.findComponent({ ref: 'new' });
 
         expect(state.text()).toBe('Other label');
     });

@@ -17,7 +17,7 @@ describe("The transition path component", () => {
 
         path.setProps({ path: [{ x: 0, y: 0 }, { x: 40, y: 40 }] });
         await path.vm.$nextTick();
-        
+
         const svgPath = path.findComponent({ ref: 'transitionPath' }).attributes('d');
 
         expect(svgPath).toEqual(expect.stringMatching('M0 0.* L40 40'));
