@@ -17,7 +17,7 @@
             :transitionPath="transition.path"
             :transitionPathRadius="transitionPathRadius"
             :label="transition.label"
-            :stylingClass="transition.stylingClass"
+            :stylingClass="transition.id"
             @click="$emit('transition-click', $event)" />
     </div>
 </template>
