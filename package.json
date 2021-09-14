@@ -30,7 +30,7 @@
   ],
   "dependencies": {
     "dagre": "^0.8.4",
-    "set-value": "^2.0.1"
+    "set-value": "^4.0.1"
   },
   "peerDependencies": {
     "vue": "^2.5.x"
