@@ -8,7 +8,7 @@
 <script>
 
 export default {
-    name: 'Label',
+    name: 'ChartLabel',
     props: {
         text: {
             type: String,
@@ -19,6 +19,7 @@ export default {
             default: () => ({ x: 0, y: 0 }),
         },
     },
+    emits: ['click'],
     computed: {
         position() {
             return {

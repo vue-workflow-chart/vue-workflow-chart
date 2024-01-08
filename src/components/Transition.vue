@@ -19,7 +19,7 @@ import Label from './Label.vue';
 import TransitionPath from './TransitionPath.vue';
 
 export default {
-    name: 'Transition',
+    name: 'ChartTransition',
     components: {
         chartLabel: Label,
         TransitionPath,
@@ -52,6 +52,7 @@ export default {
             default: '',
         },
     },
+    emits: ['click'],
     computed: {
         stylingClassLabel() {
             return (this.stylingClass) ? `vue-workflow-chart-transition-label-${this.stylingClass}` : "";

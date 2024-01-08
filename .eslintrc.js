@@ -3,6 +3,7 @@ module.exports = {
 
     'env': {
         'node': true,
+        'es2022': true,
     },
 
     'rules': {
@@ -33,13 +34,8 @@ module.exports = {
         'vue/html-indent':              ['error', 4],
         'vue/attribute-hyphenation': 'off',
     },
-
-    'parserOptions': {
-        'parser': 'babel-eslint',
-    },
-
     'extends': [
-        'plugin:vue/recommended',
+        "plugin:vue/vue3-recommended",
         'eslint:recommended',
     ],
 };

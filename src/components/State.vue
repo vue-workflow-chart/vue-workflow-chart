@@ -11,7 +11,7 @@
 import Label from "./Label.vue";
 
 export default {
-    name: "State",
+    name: "ChartState",
     components: {
         chartLabel: Label,
     },
@@ -33,6 +33,7 @@ export default {
             required: true,
         },
     },
+    emits: ["click"],
     computed: {
         stylingClassState() {
             return (this.stylingClass) ? `vue-workflow-chart-state-${this.stylingClass}` : "";

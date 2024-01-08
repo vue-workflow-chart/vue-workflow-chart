@@ -11,11 +11,11 @@ describe("The transition path component", () => {
         expect(svgPath).toEqual(expect.stringMatching('M0 0 .* L50 50'));
     });
 
-    it("gets updated when path changes", () => {
+    it("gets updated when path changes", async () => {
         const path = build(new Component(TransitionPath)
             .and.props({ path: [{ x: 0, y: 0 }, { x: 50, y: 50 }] }));
 
-        path.setProps({ path: [{ x: 0, y: 0 }, { x: 40, y: 40 }] });
+        await path.setProps({ path: [{ x: 0, y: 0 }, { x: 40, y: 40 }] });
         const svgPath = path.find({ ref: 'transitionPath' }).attributes('d');
 
         expect(svgPath).toEqual(expect.stringMatching('M0 0.* L40 40'));

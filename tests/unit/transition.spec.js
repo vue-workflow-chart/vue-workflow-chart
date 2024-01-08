@@ -14,12 +14,12 @@ class TransitionComponent extends Component {
 }
 
 const pathAttributeOf = (transition) => {
-    const path = transition.find({ name: 'TransitionPath' })
+    const path = transition.findComponent({ name: 'TransitionPath' })
         .find({ ref:"transitionPath" });
     return path.attributes('d');
 };
 
-const labelOf = (transition) => transition.find({ ref: 'label' });
+const labelOf = (transition) => transition.findComponent({ ref: 'label' });
 
 
 describe("The transition component", () => {
@@ -37,10 +37,10 @@ describe("The transition component", () => {
         expect(pathAttributeOf(transition)).toEqual(expect.stringMatching('M0 0.* L100 100'));
     });
 
-    it("emits click with id when clicked", () => {
+    it("emits click with id when clicked", async () => {
         const transition = build(new TransitionComponent().with.props({ id: '1' }));
 
-        labelOf(transition).trigger('click');
+        await labelOf(transition).trigger('click');
 
         expect(transition.emitted('click')).toEqual([['1']]);
     });

@@ -1,4 +1,4 @@
-import { createLocalVue, mount, shallowMount } from '@vue/test-utils';
+import { mount, shallowMount } from '@vue/test-utils';
 
 
 export function build(component) {
@@ -40,10 +40,7 @@ export class Component extends BaseComponent {
     }
 
     build() {
-        const localVue = createLocalVue();
-
         const buildComponent = this._mountFunction(this._component, {
-            localVue,
             ...this._options,
             propsData: this._props,
         });

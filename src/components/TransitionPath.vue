@@ -5,7 +5,7 @@
         <g>
             <defs>
                 <marker
-                    :id="'markerArrow'+_uid"
+                    :id="'markerArrow'+$.uid"
                     viewBox="0 0 10 10"
                     markerWidth="3"
                     markerHeight="3"
@@ -21,7 +21,7 @@
             <path
                 ref="transitionPath"
                 :d="svgPath"
-                :marker-end="'url(#markerArrow'+_uid+')'"
+                :marker-end="'url(#markerArrow'+$.uid+')'"
                 class="vue-workflow-chart-transition-path"
                 :class="stylingClassPath" />
         </g>

@@ -62,8 +62,8 @@ const filterLayoutTransitionsWhereStylingClassIsNew = chart =>
     layoutTransitionsOf(chart).filter(item => item.stylingClass === "new");
 
 const findTransitionOf = (chart) =>
-    chart.find({ ref: filterLayoutTransitionsWhereStylingClassIsNew(chart)[0].id })
-        .find({ ref: 'label' });
+    chart.findComponent({ ref: filterLayoutTransitionsWhereStylingClassIsNew(chart)[0].id })
+        .findComponent({ ref: 'label' });
 
 
 describe("Workflow Chart component", ()  => {
@@ -85,7 +85,7 @@ describe("Workflow Chart component", ()  => {
         it("has the right styling class for states when property is empty", () => {
             const chart = build(new Component(WorkflowChart).with.mount()
                 .and.props({ transitions, states }));
-            const state = chart.find({ ref: 'static_state_new' });
+            const state = chart.findComponent({ ref: 'static_state_new' });
 
             expect(classesOf(state)).toEqual(["vue-workflow-chart-state"]);
         });
@@ -93,7 +93,7 @@ describe("Workflow Chart component", ()  => {
         it("has the right styling classes for states when property is passed", () => {
             const chart = build(new Component(WorkflowChart).with.mount()
                 .and.props({ transitions, states, stateSemantics:stateSemantics }));
-            const state = chart.find({ ref: 'static_state_new' });
+            const state = chart.findComponent({ ref: 'static_state_new' });
 
             expect(classesOf(state)).toEqual(["vue-workflow-chart-state", "vue-workflow-chart-state-new"]);
         });
@@ -107,21 +107,21 @@ describe("Workflow Chart component", ()  => {
         });
     });
 
-    it("updates state", () => {
+    it("updates state", async () => {
         const chart = build(new Component(WorkflowChart).mount()
             .and.props({ transitions: [], states: [{ id: 'new', label: 'New' }] }));
 
-        chart.setProps({ states: [{ id: 'new', label: 'Other label' }] });
-        const state = chart.find({ ref: 'new' });
+        await chart.setProps({ states: [{ id: 'new', label: 'Other label' }] });
+        const state = chart.findComponent({ ref: 'new' });
 
         expect(state.text()).toBe('Other label');
     });
 
-    it("emits size after state is updated", () => {
+    it("emits size after state is updated", async () => {
         const chart = build(new Component(WorkflowChart)
             .and.props({ transitions: [], states: [{ id: 'new', label: 'New' }] }));
 
-        chart.setProps({ states: [{ id: 'new', label: 'Other label' }] });
+        await chart.setProps({ states: [{ id: 'new', label: 'Other label' }] });
 
         expect(chart.emitted('size-change').length).toBe(2);
     });
@@ -138,11 +138,11 @@ describe("Workflow Chart component", ()  => {
                 ],
             }));
 
-        chart.setProps({ transitions: [
+        await chart.setProps({ transitions: [
             { id: 'trans_1', label: 'changed label', target: 'state_2', source: 'state_1' },
         ] });
 
-        const transition = chart.find({ ref: 'trans_1' });
+        const transition = chart.findComponent({ ref: 'trans_1' });
         expect(transition.text()).toBe('changed label');
     });
 
@@ -156,31 +156,31 @@ describe("Workflow Chart component", ()  => {
         }]]);
     });
 
-    it("emits state-click with id when state is clicked", () => {
+    it("emits state-click with id when state is clicked", async () => {
         const chart = build(new Component(WorkflowChart).mount()
             .with.props({ transitions: [], states: [{ id: '1', label: 'Deleted' }] }));
-        const state = chart.find({ ref: "1" });
+        const state = chart.findComponent({ ref: "1" });
 
-        state.trigger("click");
+        await state.trigger("click");
 
         expect(chart.emitted('state-click')).toEqual([['1']]);
     });
 
-    it("emits transition-click with id when transition is clicked", () => {
+    it("emits transition-click with id when transition is clicked", async () => {
         const chart = build(new Component(WorkflowChart).mount()
             .with.props({ transitions, states }));
-        const transitionLabel = chart.find({ ref: "delete" }).find({ ref: 'label' });
+        const transitionLabel = chart.findComponent({ ref: "delete" }).findComponent({ ref: 'label' });
 
-        transitionLabel.trigger("click");
+        await transitionLabel.trigger("click");
 
         expect(chart.emitted('transition-click')).toEqual([['delete']]);
     });
 
-    it("removes displayed state when state-prop is removed", () => {
+    it("removes displayed state when state-prop is removed", async () => {
         const chart = build(new Component(WorkflowChart).mount()
             .with.props({ transitions: [], states: [{ id: '1', label: 'Deleted' }] }));
 
-        chart.setProps({ states: [] });
+        await chart.setProps({ states: [] });
 
         expect(chart.text()).not.toEqual('Deleted');
     });

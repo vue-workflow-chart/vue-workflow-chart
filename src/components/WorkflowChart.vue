@@ -1,6 +1,6 @@
 <template>
     <div class="workflow-chart">
-        <state
+        <chart-state
             v-for="state in layout.states"
             :id="state.id"
             :ref="state.id"
@@ -23,8 +23,8 @@
 </template>
 
 <script>
-import Transition from './Transition.vue';
-import State from './State.vue';
+import ChartState from './State.vue';
+import ChartTransition from './Transition.vue';
 import Layout from '../lib/layout';
 import Workflow from '../lib/workflow';
 import { size as sizeCalculation } from '../lib/DivElement';
@@ -32,8 +32,8 @@ import { size as sizeCalculation } from '../lib/DivElement';
 export default {
     name: 'WorkflowChart',
     components: {
-        State,
-        chartTransition: Transition,
+        ChartState,
+        ChartTransition,
     },
     props: {
         transitions: {
@@ -57,6 +57,7 @@ export default {
             default: 'horizontal',
         },
     },
+    emits: ['size-change', 'state-click', 'transition-click'],
     computed: {
         layout() {
             const workflow = new Workflow({ states: this.states, transitions: this.transitions });
