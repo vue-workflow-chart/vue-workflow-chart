@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="vue-workflow-chart-element">
         <transition-path
             :path="transitionPath"
             :radius="transitionPathRadius"
@@ -13,17 +13,15 @@
             @click="$emit('click', id)" />
     </div>
 </template>
-
-<script>
-import Label from './Label.vue';
+<script setup>
+import ChartLabel from './Label.vue';
 import TransitionPath from './TransitionPath.vue';
 
+defineEmits(['click']);
+</script>
+<script>
 export default {
     name: 'ChartTransition',
-    components: {
-        chartLabel: Label,
-        TransitionPath,
-    },
     props: {
         id: {
             type: String,
@@ -52,7 +50,6 @@ export default {
             default: '',
         },
     },
-    emits: ['click'],
     computed: {
         stylingClassLabel() {
             return (this.stylingClass) ? `vue-workflow-chart-transition-label-${this.stylingClass}` : "";

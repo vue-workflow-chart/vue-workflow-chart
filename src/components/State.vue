@@ -1,20 +1,20 @@
 <template>
     <chart-label
-        class="vue-workflow-chart-state"
+        class="vue-workflow-chart-state vue-workflow-chart-element"
         :class="stylingClassState"
         :anchor="center"
         :text="label"
         @click="$emit('click', id)" />
 </template>
 
+<script setup>
+import ChartLabel from "./Label.vue";
+defineEmits(["click"]);
+</script>
 <script>
-import Label from "./Label.vue";
 
 export default {
     name: "ChartState",
-    components: {
-        chartLabel: Label,
-    },
     props: {
         id: {
             type: String,
@@ -33,7 +33,6 @@ export default {
             required: true,
         },
     },
-    emits: ["click"],
     computed: {
         stylingClassState() {
             return (this.stylingClass) ? `vue-workflow-chart-state-${this.stylingClass}` : "";

@@ -1,5 +1,6 @@
 <template>
     <div
+        class="vue-workflow-chart-label vue-workflow-chart-element"
         :style="position"
         @click="$emit('click')"
         v-text="text" />
@@ -31,11 +32,10 @@ export default {
     },
 };
 </script>
-<style lang="scss" scoped>
-div {
+<style lang="scss">
+.vue-workflow-chart-label {
     display: flex 1 0 0;
     flex-wrap: wrap;
-    position: absolute;
     transform: translate(-50%, -50%);
     z-index: 1;
 }

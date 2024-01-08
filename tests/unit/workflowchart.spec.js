@@ -87,7 +87,11 @@ describe("Workflow Chart component", ()  => {
                 .and.props({ transitions, states }));
             const state = chart.findComponent({ ref: 'static_state_new' });
 
-            expect(classesOf(state)).toEqual(["vue-workflow-chart-state"]);
+            expect(classesOf(state)).toEqual([
+              "vue-workflow-chart-label",
+              "vue-workflow-chart-element",
+              "vue-workflow-chart-state"
+            ]);
         });
 
         it("has the right styling classes for states when property is passed", () => {
@@ -95,7 +99,12 @@ describe("Workflow Chart component", ()  => {
                 .and.props({ transitions, states, stateSemantics:stateSemantics }));
             const state = chart.findComponent({ ref: 'static_state_new' });
 
-            expect(classesOf(state)).toEqual(["vue-workflow-chart-state", "vue-workflow-chart-state-new"]);
+            expect(classesOf(state)).toEqual([
+              "vue-workflow-chart-label",
+              "vue-workflow-chart-element",
+              "vue-workflow-chart-state",
+              "vue-workflow-chart-state-new"
+            ]);
         });
 
         it("has the right styling class for transitions when property is passed", () => {
@@ -103,7 +112,12 @@ describe("Workflow Chart component", ()  => {
                 .and.props({ transitions, states, stateSemantics }));
             const transitionWithTargetNew = findTransitionOf(chart);
 
-            expect(classesOf(transitionWithTargetNew)).toEqual(["vue-workflow-chart-transition-label", "vue-workflow-chart-transition-label-new"]);
+            expect(classesOf(transitionWithTargetNew)).toEqual([
+              "vue-workflow-chart-label",
+              "vue-workflow-chart-element",
+              "vue-workflow-chart-transition-label",
+              "vue-workflow-chart-transition-label-new"
+            ]);
         });
     });
 

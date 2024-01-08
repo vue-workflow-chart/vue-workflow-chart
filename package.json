@@ -1,6 +1,16 @@
 {
   "name": "vue-workflow-chart",
   "version": "0.4.5",
+  "type": "module",
+  "files": ["dist"],
+  "main": "./dist/vue-workflow-chart.umd.cjs",
+  "module": "./dist/vue-workflow-chart.js",
+  "exports": {
+    ".": {
+      "import": "./dist/vue-workflow-chart.js",
+      "require": "./dist/vue-workflow-chart.umd.cjs"
+    }
+  },
   "private": false,
   "author": {
     "name": "vue-workflow-chart"
@@ -16,12 +26,10 @@
   "description": "workflow charts for vue.js",
   "license": "GPL-3.0-or-later",
   "repository": "https://github.com/vue-workflow-chart/vue-workflow-chart",
-  "main": "./dist/vue-workflow-chart.umd.js",
-  "unpkg": "./dist/vue-workflow-chart.umd.min.js",
   "scripts": {
     "dev": "vite",
     "serve": "vite preview",
-    "build": "vite build --target lib --name vue-workflow-chart ./src/components/WorkflowChart.vue",
+    "build": "vite build",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore --fix src",
     "test:unit": "vitest run"
   },

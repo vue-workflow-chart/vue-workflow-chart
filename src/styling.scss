@@ -48,6 +48,7 @@ $marker-definition: url(#markerArrow);
 .vue-workflow-chart-transition-arrow {
   fill: $arrow-color;
   stroke-width: $arrow-stroke-width;
+  stroke: none;
 }
 .vue-workflow-chart-transition-path {
   fill: none;

@@ -1,5 +1,6 @@
 <template>
     <svg
+        class="vue-workflow-chart-transition-path"
         :width="width"
         :height="height">
         <g>
@@ -86,8 +87,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-svg {
+<style lang="scss">
+.vue-workflow-chart-transition-path {
     display: inline-block;
     position: absolute;
 }

@@ -1,5 +1,5 @@
 <template>
-    <div class="workflow-chart">
+    <div class="vue-workflow-chart">
         <chart-state
             v-for="state in layout.states"
             :id="state.id"
@@ -8,7 +8,7 @@
             :label="state.label"
             :center="state.center"
             :stylingClass="state.stylingClass"
-            @click="$emit('state-click', $event)" />
+            @click="onStateClicked" />
         <chart-transition
             v-for="transition in layout.transitions"
             :id="transition.id"
@@ -18,23 +18,20 @@
             :transitionPathRadius="transitionPathRadius"
             :label="transition.label"
             :stylingClass="transition.stylingClass"
-            @click="$emit('transition-click', $event)" />
+            @click="onTransitionClicked" />
     </div>
 </template>
-
-<script>
+<script setup>
 import ChartState from './State.vue';
 import ChartTransition from './Transition.vue';
+</script>
+<script>
 import Layout from '../lib/layout';
 import Workflow from '../lib/workflow';
 import { size as sizeCalculation } from '../lib/DivElement';
 
 export default {
     name: 'WorkflowChart',
-    components: {
-        ChartState,
-        ChartTransition,
-    },
     props: {
         transitions: {
             type: Array,
@@ -81,14 +78,21 @@ export default {
         emitSize() {
             this.$emit('size-change', this.layout.size);
         },
+        onStateClicked(event) {
+            this.$emit('state-click', event);
+        },
+        onTransitionClicked(event) {
+            this.$emit('transition-click', event);
+        },
     },
 };
 </script>
 <style lang='scss'>
 @import '../styling.scss';
-</style>
-<style lang='scss' scoped>
-div {
+.vue-workflow-chart {
+  position: relative;
+}
+.vue-workflow-chart-element {
     position: absolute;
 }
 </style>
