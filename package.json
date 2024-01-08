@@ -5,12 +5,6 @@
   "files": ["dist"],
   "main": "./dist/vue-workflow-chart.umd.cjs",
   "module": "./dist/vue-workflow-chart.js",
-  "exports": {
-    ".": {
-      "import": "./dist/vue-workflow-chart.js",
-      "require": "./dist/vue-workflow-chart.umd.cjs"
-    }
-  },
   "private": false,
   "author": {
     "name": "vue-workflow-chart"

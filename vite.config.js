@@ -13,6 +13,12 @@ export default defineConfig({
         rollupOptions: {
             external: ['vue'],
             output: {
+                assetFileNames: (assetInfo) => {
+                    if (assetInfo.name === 'style.css') {
+                        return 'vue-workflow-chart.css';
+                    }
+                    return assetInfo.name;
+                },
                 globals: {
                     vue: 'Vue',
                 },
