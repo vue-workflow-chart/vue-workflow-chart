@@ -1,6 +1,4 @@
 Workflow Charts for vue.js [![Build Status](https://cloud.drone.io/api/badges/vue-workflow-chart/vue-workflow-chart/status.svg)](https://cloud.drone.io/vue-workflow-chart/vue-workflow-chart)
-[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=vue-workflow-chart_vue-workflow-chart&metric=alert_status)](https://sonarcloud.io/dashboard/index/vue-workflow-chart_vue-workflow-chart)
-[![Code coverage](https://sonarcloud.io/api/project_badges/measure?project=vue-workflow-chart_vue-workflow-chart&metric=coverage)](https://sonarcloud.io/dashboard/index/vue-workflow-chart_vue-workflow-chart)
 [![NPM version](https://badge.fury.io/js/vue-workflow-chart.svg)](https://badge.fury.io/js/vue-workflow-chart)
  [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 ========================
@@ -29,6 +27,7 @@ As an OpenSource - project, vue-workflow-chart comes under the GPLv3 - license.
 ## Requirements
 
 * npm
+* starting from 0.5.x this package supports Vue 3.x only
 
 ## Installation
 

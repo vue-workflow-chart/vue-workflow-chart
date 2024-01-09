@@ -1,0 +1,40 @@
+name: Lint, Test and Build
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+
+  build:
+    name: Builds container needed for testing and derive changes
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v4
+
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 20
+        registry-url: 'https://registry.npmjs.org'
+        cache: "yarn"
+        cache-dependency-path: "yarn.lock"
+        
+    - name: Install and build
+      run: |
+        yarn install
+        yarn build
+
+    - name: Test
+      run: |
+        yarn test:unit
+        yarn lint
+
+    - name: Publish
+      run: |
+        yarn publish
+      env: 
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

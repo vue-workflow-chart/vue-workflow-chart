@@ -2,7 +2,9 @@
   "name": "vue-workflow-chart",
   "version": "0.4.5",
   "type": "module",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "main": "./dist/vue-workflow-chart.umd.cjs",
   "module": "./dist/vue-workflow-chart.js",
   "private": false,
